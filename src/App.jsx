@@ -1,98 +1,72 @@
 import { useState, useEffect, useRef } from "react";
 
-const NAV_LINKS = ["Home", "Services", "About", "Testimonials", "Contact"];
+const NAV_LINKS = ["Home", "Services", "About", "Contact"];
 
+// ✅ CORRECTED: Services updated to match doc (5 services, correct descriptions)
 const SERVICES = [
   {
     icon: "🔄",
-    title: "KTU B.Tech Credit Transfer",
-    desc: "Lost 1–2 years in B.Tech? We help you recover lost semesters through KTU's official credit transfer process. Available for 2019 batch onwards.",
+    title: "B.Tech Credit Transfer",
+    desc: "Students facing backlogs, discontinuation, or academic difficulties can continue their engineering education through proper credit transfer guidance and admission support.",
     tag: "Most Popular",
     color: "#00AEEF",
     highlight: true,
   },
   {
-    icon: "📋",
-    title: "Backlog Clearance Support",
-    desc: "Struggling with backlogs? Our expert team guides you through every step to clear arrears and get back on track without losing more time.",
-    tag: "High Demand",
+    icon: "🏫",
+    title: "Admission Guidance",
+    desc: "Complete assistance for choosing suitable colleges, courses, and educational pathways based on student goals and eligibility.",
+    tag: "Featured",
     color: "#0077B6",
   },
   {
-    icon: "🏫",
-    title: "College Transfer Guidance",
-    desc: "Want to move to a better college? We handle the entire KTU inter-college transfer process smoothly and efficiently from start to finish.",
-    tag: "Featured",
+    icon: "🎯",
+    title: "Academic Counselling",
+    desc: "One-on-one counselling sessions to help students understand career options, academic opportunities, and future growth paths.",
+    tag: "Personalized",
     color: "#00AEEF",
   },
   {
     icon: "📅",
-    title: "Semester Recovery Plan",
-    desc: "Don't repeat semesters — transfer smart. We build a personalised academic recovery plan to preserve your academic journey and save your time.",
+    title: "Career Support",
+    desc: "Guidance for higher studies, skill development, and career-focused educational planning to help students move forward with confidence.",
     tag: "New",
     color: "#0077B6",
   },
   {
-    icon: "✅",
-    title: "Eligibility Assessment",
-    desc: "Not sure if you qualify? We offer a free eligibility check to evaluate your case and advise on the best academic route forward.",
-    tag: "Free",
+    icon: "📋",
+    title: "Documentation Assistance",
+    desc: "Support with admission procedures, documentation, application processing, and student coordination from start to finish.",
+    tag: "End-to-End",
     color: "#00AEEF",
   },
-  {
-    icon: "💳",
-    title: "Flexible EMI Plans",
-    desc: "Affordable fees with flexible EMI options so financial constraints never become a barrier to continuing your education.",
-    tag: "Flexible",
-    color: "#0077B6",
-  },
 ];
 
-const TESTIMONIALS = [
-  {
-    name: "Arun K.",
-    role: "KTU B.Tech Student, 2020 Batch",
-    text: "I lost 2 years due to health issues and thought my degree was over. Lifeline helped me transfer credits and continue without starting over. Truly life-changing!",
-    initials: "AK",
-  },
-  {
-    name: "Meenu Thomas",
-    role: "B.Tech Credit Transfer, 2021",
-    text: "I had no idea credit transfer was even possible. The team at Lifeline explained everything clearly and handled all the paperwork. Forever grateful.",
-    initials: "MT",
-  },
-  {
-    name: "Vishnu R.",
-    role: "KTU Backlog Student",
-    text: "Had 6 backlogs and was about to drop out. Lifeline gave me a structured plan and I cleared them all within a year. Highly recommended!",
-    initials: "VR",
-  },
-  {
-    name: "Ananya S.",
-    role: "College Transfer, 2021",
-    text: "The EMI option made it possible for my family. The team was incredibly supportive and my transfer was completed faster than I expected.",
-    initials: "AS",
-  },
-];
 
+// ✅ CORRECTED: Stats updated to match doc
 const STATS = [
-  { value: "800+", label: "Students Helped" },
-  { value: "98%", label: "Success Rate" },
-  { value: "7+", label: "Years Experience" },
-  { value: "EMI", label: "Easy Payment" },
+  { value: "500+", label: "Student Enquiries" },
+  { value: "100+", label: "Guidance Sessions" },
+  { value: "Trusted", label: "Educational Support" },
+  { value: "Student", label: "Centered Approach" },
 ];
 
 const TEAM = [
-  { name: "Academic Counsellors", role: "KTU Credit Transfer Experts", exp: "7+ yrs exp", initials: "CT" },
-  { name: "Documentation Team", role: "Transfer & Backlog Processing", exp: "End-to-end support", initials: "DT" },
-  { name: "Student Advisors", role: "Eligibility & Planning", exp: "Free consultation", initials: "SA" },
+  { name: "Academic Counsellors", role: "B.Tech Credit Transfer Experts", exp: "Personalized guidance", initials: "AC" },
+  { name: "Documentation Team", role: "Transfer & Admission Processing", exp: "End-to-end support", initials: "DT" },
+  { name: "Student Advisors", role: "Eligibility & Career Planning", exp: "Free consultation", initials: "SA" },
 ];
 
+// ✅ CORRECTED: Why Choose Us points updated to match doc (8 points)
 const WHY_US = [
-  { icon: "✅", title: "2019 Batch Onwards", desc: "KTU credit transfer available for 2019 batch and later students. Check your eligibility with us today for free." },
-  { icon: "⚡", title: "Fast Processing", desc: "We handle all documentation and follow-ups so your transfer is completed without unnecessary delays." },
-  { icon: "🤝", title: "End-to-End Support", desc: "From eligibility check to final approval — we are with you at every single step of the process." },
-  { icon: "💰", title: "EMI Available", desc: "Flexible EMI plans mean your education never stops due to financial constraints. Easy and transparent." },
+  { icon: "✅", title: "Personalized Student Guidance", desc: "Every student gets a tailored plan based on their academic situation, goals, and eligibility." },
+  { icon: "💬", title: "Supportive & Friendly Counselling", desc: "Our counsellors are approachable, patient, and genuinely invested in your success." },
+  { icon: "⚡", title: "Simplified Admission Process", desc: "We handle all documentation and follow-ups so your journey is completed without unnecessary delays." },
+  { icon: "🤝", title: "Transparent Communication", desc: "We keep you informed at every step — no hidden charges, no surprises, just honest guidance." },
+  { icon: "📞", title: "Quick Response Team", desc: "Our team responds promptly so students and parents always feel supported and heard." },
+  { icon: "🎯", title: "Focused on Student Success", desc: "From eligibility check to final admission — we are with you at every single step of the process." },
+  { icon: "🗺️", title: "Guidance Across Kerala", desc: "We assist students from across Kerala with reliable educational assistance and counselling." },
+  { icon: "📚", title: "Reliable Educational Assistance", desc: "Trusted by hundreds of students and families for honest, result-oriented academic support." },
 ];
 
 function Logo({ size = 44 }) {
@@ -112,7 +86,7 @@ export default function App() {
   const [activeNav, setActiveNav] = useState("Home");
   const [menuOpen, setMenuOpen] = useState(false);
   const [visible, setVisible] = useState({});
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", batch: "", service: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", course: "", service: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
   const sectionRefs = useRef({});
@@ -140,12 +114,13 @@ export default function App() {
     if (formData.name && formData.phone) setSubmitted(true);
   };
 
+  // ✅ CORRECTED: FAQs updated to match doc
   const faqs = [
-    { q: "Who is eligible for KTU B.Tech Credit Transfer?", a: "Students from the 2019 batch onwards are eligible. Whether you lost time due to health issues, personal reasons, or backlogs — we assess your case and guide you through the process. Contact us for a free eligibility check." },
-    { q: "How many years can be recovered through credit transfer?", a: "Depending on your case, 1 to 2 years can typically be recovered through the KTU credit transfer process. Reach out to us and we will evaluate your specific situation." },
-    { q: "Is EMI available for your services?", a: "Yes! We offer flexible EMI plans so that financial constraints never become a barrier to your education. Our team will work out a payment plan suited to you." },
-    { q: "How long does the credit transfer process take?", a: "The timeline varies based on the case, but our team handles all documentation and university follow-ups to make it as fast as possible. We keep you updated at every step." },
-    { q: "Do you help with backlog clearance too?", a: "Absolutely. We provide structured backlog clearance guidance alongside credit transfer support, helping you get back on track in the most efficient way possible." },
+    { q: "Who can apply for B.Tech credit transfer?", a: "Students with backlogs, discontinued studies, or students looking for academic continuation support can contact our team for guidance. We evaluate your case and advise on the best academic route forward." },
+    { q: "Do you provide counselling support?", a: "Yes. We provide personalized counselling sessions based on the student's academic condition and future goals. Our advisors help you understand available opportunities and make confident decisions." },
+    { q: "How long does the process take?", a: "The process depends on academic profile, documentation, and institution procedures. Our team handles all documentation and university follow-ups to make it as fast as possible." },
+    { q: "Can parents contact directly?", a: "Yes. Parents and guardians can directly connect with our counselling team. We encourage family involvement and keep everyone informed throughout the process." },
+    { q: "Is online consultation available?", a: "Yes. We provide phone and online consultation support so students across Kerala can access our guidance conveniently." },
     { q: "Is the initial consultation really free?", a: "Yes — your first eligibility check and consultation is completely free. No commitments or hidden charges. Just reach out and we will take it from there." },
   ];
 
@@ -201,14 +176,15 @@ export default function App() {
         @media(min-width:641px){.menu-btn{display:none!important}.mobile-menu{display:none!important}}
       `}</style>
 
-      {/* NAV */}
+      {/* NAV — ✅ CORRECTED: Brand name is "Lifeline Education Consultancy" */}
       <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:200,background:"rgba(255,255,255,0.97)",backdropFilter:"blur(14px)",borderBottom:"1px solid #D6EAF8",boxShadow:"0 2px 20px rgba(27,42,74,.06)" }}>
         <div style={{ maxWidth:1200,margin:"0 auto",padding:"0 28px",height:72,display:"flex",alignItems:"center",justifyContent:"space-between" }}>
           <div style={{ cursor:"pointer",display:"flex",alignItems:"center",gap:12 }} onClick={() => scrollTo("home")}>
             <Logo size={46} />
             <div>
-              <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:18,fontWeight:900,color:"#1B2A4A",letterSpacing:1,lineHeight:1.1 }}>LIFELINE</div>
-              <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:10,letterSpacing:3,color:"#00AEEF",textTransform:"uppercase",fontWeight:700 }}>Consultancy</div>
+              {/* ✅ CORRECTED: Full name "Lifeline Education Consultancy" */}
+              <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:16,fontWeight:900,color:"#1B2A4A",letterSpacing:1,lineHeight:1.1 }}>LIFELINE</div>
+              <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:9,letterSpacing:2,color:"#00AEEF",textTransform:"uppercase",fontWeight:700 }}>Education Consultancy</div>
             </div>
           </div>
           <div className="nav-desktop" style={{ display:"flex",gap:36 }}>
@@ -216,7 +192,8 @@ export default function App() {
               <button key={l} className={`nav-link${activeNav===l?" active":""}`} onClick={() => scrollTo(l.toLowerCase())}>{l}</button>
             ))}
           </div>
-          <button className="blue-btn nav-desktop" style={{ padding:"10px 22px",fontSize:11 }} onClick={() => scrollTo("contact")}>Check Eligibility</button>
+          {/* ✅ CORRECTED: CTA updated to match doc */}
+          <button className="blue-btn nav-desktop" style={{ padding:"10px 22px",fontSize:11 }} onClick={() => scrollTo("contact")}>Free Consultation</button>
           <button className="menu-btn" onClick={() => setMenuOpen(!menuOpen)} style={{ background:"none",border:"none",cursor:"pointer",display:"none",flexDirection:"column",gap:5,padding:4 }}>
             {[24,16,20].map((w,i) => <span key={i} style={{ display:"block",width:w,height:2,background:"#00AEEF",borderRadius:2 }}></span>)}
           </button>
@@ -228,12 +205,13 @@ export default function App() {
                 <button className="nav-link" style={{ padding:"14px 0",display:"block",width:"100%",textAlign:"left" }} onClick={() => scrollTo(l.toLowerCase())}>{l}</button>
               </div>
             ))}
-            <button className="blue-btn" style={{ marginTop:20,width:"100%" }} onClick={() => scrollTo("contact")}>Check Eligibility — Free</button>
+            {/* ✅ CORRECTED: CTA matches doc */}
+            <button className="blue-btn" style={{ marginTop:20,width:"100%" }} onClick={() => scrollTo("contact")}>Get Free Consultation</button>
           </div>
         )}
       </nav>
 
-      {/* HERO */}
+      {/* HERO — ✅ CORRECTED: Heading Option 1 from doc, subheading & trust line from doc */}
       <section id="home" style={{ minHeight:"100vh",display:"flex",alignItems:"center",position:"relative",overflow:"hidden",paddingTop:72,background:"linear-gradient(160deg,#EBF5FD 0%,#F4F8FC 50%,#E8F4FB 100%)" }}>
         <div style={{ position:"absolute",top:"8%",right:"4%",width:420,height:420,borderRadius:"50%",background:"radial-gradient(circle,rgba(0,174,239,0.1) 0%,transparent 70%)",pointerEvents:"none" }}></div>
         <div style={{ position:"absolute",bottom:"10%",left:"-5%",width:280,height:280,borderRadius:"50%",background:"radial-gradient(circle,rgba(27,42,74,0.06) 0%,transparent 70%)",pointerEvents:"none" }}></div>
@@ -242,56 +220,60 @@ export default function App() {
 
         <div style={{ maxWidth:1200,margin:"0 auto",padding:"80px 28px",position:"relative",width:"100%",display:"grid",gridTemplateColumns:"1fr auto",gap:60,alignItems:"center" }}>
           <div>
-            {/* Live badge */}
             <div style={{ display:"inline-flex",alignItems:"center",gap:10,background:"rgba(0,174,239,0.1)",border:"1.5px solid rgba(0,174,239,0.3)",borderRadius:30,padding:"8px 18px",marginBottom:28 }}>
               <span className="pulse" style={{ display:"inline-block",width:8,height:8,borderRadius:"50%",background:"#00AEEF",flexShrink:0 }}></span>
-              <span style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:1.5,color:"#0077B6",fontWeight:700,textTransform:"uppercase" }}>KTU B.Tech Credit Transfer — 2019 Batch Onwards</span>
+              {/* ✅ CORRECTED: Badge text more general per doc scope */}
+              <span style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:1.5,color:"#0077B6",fontWeight:700,textTransform:"uppercase" }}>B.Tech Credit Transfer & Academic Support — Kerala</span>
             </div>
 
-            <h1 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(38px,5.5vw,72px)",fontWeight:900,lineHeight:1.08,color:"#1B2A4A",marginBottom:22,maxWidth:680 }}>
-              Lost 1–2 Years in<br /><span style={{ color:"#00AEEF" }}>B.Tech?</span><br />Don't Give Up!
+            {/* ✅ CORRECTED: Hero heading from doc Option 1 */}
+            <h1 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(34px,5vw,66px)",fontWeight:900,lineHeight:1.1,color:"#1B2A4A",marginBottom:22,maxWidth:680 }}>
+              Your Dream Degree<br />Deserves A<br /><span style={{ color:"#00AEEF" }}>Second Chance.</span>
             </h1>
-            <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:600,fontSize:17,lineHeight:1.75,color:"#0077B6",maxWidth:540,marginBottom:14 }}>
-              Don't waste any more time — your degree is still within reach.
+
+            {/* ✅ CORRECTED: Subheading from doc */}
+            <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:600,fontSize:17,lineHeight:1.75,color:"#0077B6",maxWidth:560,marginBottom:14 }}>
+              Helping students with B.Tech Credit Transfer, Admission Guidance, Academic Support & Career Direction across Kerala.
             </p>
             <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:16,lineHeight:1.8,color:"#4A6080",maxWidth:520,marginBottom:44 }}>
-              Through KTU's official Credit Transfer process, Lifeline Consultancy helps you recover lost semesters and continue your B.Tech without starting over. We help you continue your studies without delay.
+              We understand the pressure students face due to backlogs, academic gaps, and transfer issues. Lifeline Education Consultancy provides personalized guidance to help you continue your education without giving up on your dreams.
             </p>
+
+            {/* ✅ CORRECTED: CTA buttons from doc */}
             <div className="hero-btns" style={{ display:"flex",gap:16,flexWrap:"wrap",marginBottom:48 }}>
-              <button className="blue-btn" onClick={() => scrollTo("contact")}>Check My Eligibility — Free</button>
-              <button className="outline-btn" onClick={() => scrollTo("services")}>Our Services</button>
+              <button className="blue-btn" onClick={() => scrollTo("contact")}>Get Free Consultation</button>
+              <button className="outline-btn" onClick={() => scrollTo("contact")}>WhatsApp Us</button>
             </div>
 
-            {/* Feature pills */}
-            <div style={{ display:"flex",gap:0,flexWrap:"wrap",background:"#fff",border:"1.5px solid #D6EAF8",borderRadius:12,overflow:"hidden",maxWidth:580,boxShadow:"0 4px 20px rgba(27,42,74,.07)" }}>
+            {/* ✅ CORRECTED: Trust line from doc */}
+            <div style={{ display:"flex",gap:0,flexWrap:"wrap",background:"#fff",border:"1.5px solid #D6EAF8",borderRadius:12,overflow:"hidden",maxWidth:620,boxShadow:"0 4px 20px rgba(27,42,74,.07)" }}>
               {[
-                { icon:"✅", text:"2019 Batch+" },
-                { icon:"📋", text:"Backlog Support" },
-                { icon:"🔄", text:"Credit Transfer" },
-                { icon:"💳", text:"EMI Available" },
+                { icon:"✔", text:"Trusted Student Support" },
+                { icon:"✔", text:"Personalized Guidance" },
+                { icon:"✔", text:"Quick Admission Help" },
+                { icon:"✔", text:"Student-Friendly Process" },
               ].map((item, i) => (
                 <div key={i} style={{ flex:"1 1 120px",padding:"16px 10px",textAlign:"center",borderRight:i<3?"1px solid #D6EAF8":"none" }}>
-                  <div style={{ fontSize:20,marginBottom:6 }}>{item.icon}</div>
-                  <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,fontWeight:700,color:"#1B2A4A" }}>{item.text}</div>
+                  <div style={{ fontSize:18,marginBottom:6,color:"#00AEEF" }}>{item.icon}</div>
+                  <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:10,fontWeight:700,color:"#1B2A4A" }}>{item.text}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Faded logo right */}
           <div className="hero-right" style={{ display:"flex",flexDirection:"column",alignItems:"center",opacity:0.1,pointerEvents:"none" }}>
             <Logo size={260} />
           </div>
         </div>
       </section>
 
-      {/* STATS BAR */}
+      {/* STATS BAR — ✅ CORRECTED: Stats from doc */}
       <section style={{ background:"linear-gradient(135deg,#1B2A4A,#0D1F3A)",padding:"52px 28px" }}>
         <div style={{ maxWidth:1200,margin:"0 auto" }}>
           <div className="stats-grid" style={{ display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:0,textAlign:"center" }}>
             {STATS.map((s,i) => (
               <div key={i} style={{ padding:"12px 8px",borderRight:i<3?"1px solid rgba(0,174,239,0.2)":"none" }}>
-                <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:42,fontWeight:900,color:"#00AEEF",lineHeight:1.1 }}>{s.value}</div>
+                <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:38,fontWeight:900,color:"#00AEEF",lineHeight:1.1 }}>{s.value}</div>
                 <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:2,textTransform:"uppercase",color:"rgba(255,255,255,0.55)",marginTop:6,fontWeight:600 }}>{s.label}</div>
               </div>
             ))}
@@ -299,14 +281,15 @@ export default function App() {
         </div>
       </section>
 
-      {/* SERVICES */}
+      {/* SERVICES — ✅ CORRECTED: 5 services from doc */}
       <section id="services" ref={setRef("services")} style={{ padding:"110px 28px",background:"#F4F8FC" }}>
         <div style={{ maxWidth:1200,margin:"0 auto" }}>
           <div className={`fade-up${visible.services?" in":""}`} style={{ textAlign:"center",marginBottom:70 }}>
             <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:4,color:"#00AEEF",textTransform:"uppercase",marginBottom:16,fontWeight:700 }}>What We Offer</div>
             <div style={{ width:48,height:3,background:"linear-gradient(90deg,#00AEEF,#0077B6)",margin:"0 auto 22px",borderRadius:2 }}></div>
             <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(28px,4vw,48px)",fontWeight:900,color:"#1B2A4A",marginBottom:16 }}>Our Services</h2>
-            <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:15,color:"#4A6080",maxWidth:480,margin:"0 auto" }}>Specialised guidance for KTU B.Tech students — from credit transfer to backlog clearance and beyond.</p>
+            {/* ✅ CORRECTED: Subtitle broadened per doc scope */}
+            <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:15,color:"#4A6080",maxWidth:520,margin:"0 auto" }}>Specialised guidance for students — from B.Tech credit transfer to admission support, counselling, and career guidance.</p>
           </div>
           <div className="services-grid" style={{ display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:22 }}>
             {SERVICES.map((s,i) => (
@@ -319,7 +302,7 @@ export default function App() {
                 <h3 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:19,fontWeight:800,color:s.highlight?"#fff":"#1B2A4A",marginBottom:12,lineHeight:1.3 }}>{s.title}</h3>
                 <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:14,lineHeight:1.85,color:s.highlight?"rgba(255,255,255,0.65)":"#4A6080",marginBottom:20 }}>{s.desc}</p>
                 <button onClick={() => scrollTo("contact")} style={{ background:"none",border:"none",color:s.highlight?"#00AEEF":s.color,fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:1.5,textTransform:"uppercase",cursor:"pointer",padding:0,display:"flex",alignItems:"center",gap:8,fontWeight:800 }}>
-                  Enquire Now →
+                  Talk To A Counsellor →
                 </button>
               </div>
             ))}
@@ -327,61 +310,117 @@ export default function App() {
         </div>
       </section>
 
-      {/* WHY CHOOSE US */}
+      {/* STUDENT PROBLEMS SECTION — ✅ NEW: Added from doc Section 5 */}
+      <section style={{ padding:"90px 28px",background:"#1B2A4A",position:"relative",overflow:"hidden" }}>
+        <div style={{ position:"absolute",top:-80,right:-80,width:320,height:320,borderRadius:"50%",background:"rgba(0,174,239,0.07)",pointerEvents:"none" }}></div>
+        <div style={{ maxWidth:1100,margin:"0 auto",textAlign:"center" }}>
+          <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:4,color:"#00AEEF",textTransform:"uppercase",marginBottom:16,fontWeight:700 }}>We Understand You</div>
+          <div style={{ width:48,height:3,background:"linear-gradient(90deg,#00AEEF,#0077B6)",margin:"0 auto 22px",borderRadius:2 }}></div>
+          <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(24px,3.5vw,42px)",fontWeight:900,color:"#fff",marginBottom:20 }}>
+            Feeling Stuck In Your Academic Journey?
+          </h2>
+          <p style={{ fontFamily:"'Nunito',sans-serif",fontSize:16,color:"rgba(255,255,255,0.65)",lineHeight:1.8,maxWidth:620,margin:"0 auto 44px" }}>
+            Many students lose confidence because of backlogs, discontinued studies, pressure from family, or uncertainty about their future. At Lifeline, we believe one setback should never decide your future.
+          </p>
+          <div style={{ display:"flex",flexWrap:"wrap",gap:14,justifyContent:"center",marginBottom:44 }}>
+            {["Too Many Backlogs?","Lost Academic Year?","Confused About Next Step?","Want To Continue B.Tech?","Need Expert Guidance?"].map((item,i) => (
+              <div key={i} style={{ background:"rgba(0,174,239,0.12)",border:"1.5px solid rgba(0,174,239,0.3)",borderRadius:30,padding:"10px 22px",fontFamily:"'Montserrat',sans-serif",fontSize:12,fontWeight:700,color:"#00AEEF",letterSpacing:0.5 }}>
+                {item}
+              </div>
+            ))}
+          </div>
+          <button className="blue-btn" style={{ fontSize:13 }} onClick={() => scrollTo("contact")}>Talk To A Counsellor Today</button>
+        </div>
+      </section>
+
+      {/* PROCESS SECTION — ✅ NEW: Added from doc Section 6 */}
       <section style={{ padding:"90px 28px",background:"#fff" }}>
+        <div style={{ maxWidth:1100,margin:"0 auto" }}>
+          <div style={{ textAlign:"center",marginBottom:60 }}>
+            <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:4,color:"#00AEEF",textTransform:"uppercase",marginBottom:16,fontWeight:700 }}>How It Works</div>
+            <div style={{ width:48,height:3,background:"linear-gradient(90deg,#00AEEF,#0077B6)",margin:"0 auto 22px",borderRadius:2 }}></div>
+            <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(26px,3.5vw,42px)",fontWeight:900,color:"#1B2A4A" }}>Simple <span style={{ color:"#00AEEF" }}>4-Step Process</span></h2>
+          </div>
+          <div style={{ display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:24 }} className="why-grid">
+            {[
+              { step:"01",title:"Contact Our Team",desc:"Speak with our educational counsellors and explain your academic situation." },
+              { step:"02",title:"Profile Evaluation",desc:"Our experts analyze your eligibility, academic status, and available opportunities." },
+              { step:"03",title:"Guidance & Documentation",desc:"Receive complete support for choosing the right path and preparing necessary documents." },
+              { step:"04",title:"Admission Support",desc:"Get end-to-end assistance until the process is completed successfully." },
+            ].map((item,i) => (
+              <div key={i} className="why-card" style={{ textAlign:"center" }}>
+                <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:36,fontWeight:900,color:"rgba(0,174,239,0.2)",marginBottom:10 }}>{item.step}</div>
+                <h3 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:16,fontWeight:800,color:"#1B2A4A",marginBottom:10 }}>{item.title}</h3>
+                <p style={{ fontFamily:"'Nunito',sans-serif",fontSize:13,lineHeight:1.8,color:"#4A6080" }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHY CHOOSE US — ✅ CORRECTED: 8 points from doc */}
+      <section style={{ padding:"90px 28px",background:"#F4F8FC" }}>
         <div style={{ maxWidth:1200,margin:"0 auto" }}>
           <div style={{ textAlign:"center",marginBottom:60 }}>
             <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:4,color:"#00AEEF",textTransform:"uppercase",marginBottom:14,fontWeight:700 }}>Why Choose Us</div>
             <div style={{ width:48,height:3,background:"linear-gradient(90deg,#00AEEF,#0077B6)",margin:"0 auto 20px",borderRadius:2 }}></div>
+            {/* ✅ CORRECTED: Heading from doc */}
             <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(26px,3.5vw,42px)",fontWeight:900,color:"#1B2A4A" }}>
-              KTU B.Tech Credit Transfer <span style={{ color:"#00AEEF" }}>Made Simple</span>
+              Why Students <span style={{ color:"#00AEEF" }}>Trust Lifeline</span>
             </h2>
           </div>
           <div className="why-grid" style={{ display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:20,marginBottom:52 }}>
             {WHY_US.map((w,i) => (
               <div key={i} className="why-card">
-                <div style={{ fontSize:32,marginBottom:14 }}>{w.icon}</div>
-                <h3 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:16,fontWeight:800,color:"#1B2A4A",marginBottom:10 }}>{w.title}</h3>
+                <div style={{ fontSize:28,marginBottom:14 }}>{w.icon}</div>
+                <h3 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:15,fontWeight:800,color:"#1B2A4A",marginBottom:10 }}>{w.title}</h3>
                 <p style={{ fontFamily:"'Nunito',sans-serif",fontSize:13,lineHeight:1.8,color:"#4A6080" }}>{w.desc}</p>
               </div>
             ))}
           </div>
 
-          {/* Banner strip */}
+          {/* Banner strip — ✅ CORRECTED: Text from doc brand positioning */}
           <div style={{ background:"linear-gradient(135deg,#1B2A4A,#0D1F3A)",borderRadius:16,padding:"40px 48px",display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:24 }}>
             <div>
               <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:22,fontWeight:900,color:"#fff",marginBottom:8 }}>
-                Don't Repeat Semesters — <span style={{ color:"#00AEEF" }}>Transfer Smart</span>
+                Don't Let Backlogs Stop Your Dream. <span style={{ color:"#00AEEF" }}>Restart Today.</span>
               </div>
+              {/* ✅ CORRECTED: Tagline from doc */}
               <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:14,color:"rgba(255,255,255,0.6)" }}>
-                Preserve your academic journey with expert help. We help you continue your studies without delay.
+                Guiding students towards a better academic future. Better Guidance. Better Direction. Better Future.
               </div>
             </div>
             <button className="blue-btn" style={{ flexShrink:0,whiteSpace:"nowrap" }} onClick={() => scrollTo("contact")}>
-              DM Us to Check Eligibility
+              Talk To Our Expert
             </button>
           </div>
         </div>
       </section>
 
-      {/* ABOUT */}
-      <section id="about" ref={setRef("about")} style={{ padding:"110px 28px",background:"#F4F8FC" }}>
+      {/* ABOUT — ✅ CORRECTED: Content updated from doc About section */}
+      <section id="about" ref={setRef("about")} style={{ padding:"110px 28px",background:"#fff" }}>
         <div style={{ maxWidth:1200,margin:"0 auto" }}>
           <div className="about-grid" style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:80,alignItems:"center" }}>
             <div className={`fade-up${visible.about?" in":""}`}>
               <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:4,color:"#00AEEF",textTransform:"uppercase",marginBottom:16,fontWeight:700 }}>About Us</div>
               <div style={{ width:48,height:3,background:"linear-gradient(90deg,#00AEEF,#0077B6)",marginBottom:24,borderRadius:2 }}></div>
+              {/* ✅ CORRECTED: Heading from doc */}
               <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(26px,3.5vw,44px)",fontWeight:900,color:"#1B2A4A",marginBottom:24,lineHeight:1.2 }}>
-                Trivandrum's Trusted<br /><span style={{ color:"#00AEEF" }}>KTU Academic</span><br />Support Experts
+                About Lifeline<br /><span style={{ color:"#00AEEF" }}>Education</span><br />Consultancy
               </h2>
+              {/* ✅ CORRECTED: About content from doc */}
               <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:15,lineHeight:1.9,color:"#4A6080",marginBottom:16 }}>
-                Lifeline Consultancy, based in Nedumangad, Trivandrum, is Kerala's trusted name for KTU B.Tech academic support. With 7+ years of experience and 800+ students helped, we specialise in credit transfer, backlog clearance, and college transfers.
+                Lifeline Education Consultancy was created with one mission — to help students continue their education without giving up on their dreams.
+              </p>
+              <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:15,lineHeight:1.9,color:"#4A6080",marginBottom:16 }}>
+                We understand the pressure students face due to backlogs, academic gaps, transfer issues, career confusion, or university-related challenges. Our expert team provides personalized guidance for B.Tech credit transfer, admission assistance, educational counselling, and academic support.
               </p>
               <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:15,lineHeight:1.9,color:"#4A6080",marginBottom:36 }}>
-                We believe no student should lose their future over lost semesters. Our expert team handles every step — from eligibility assessment to final approval — ensuring you continue your academic journey without unnecessary delays.
+                With a student-first approach, we help candidates explore the right academic opportunities and make confident decisions for a better future.
               </p>
+              {/* ✅ CORRECTED: Stats from doc */}
               <div style={{ display:"flex",gap:40,marginBottom:36,flexWrap:"wrap" }}>
-                {[["800+","Students Helped"],["7+","Years Experience"],["98%","Success Rate"]].map(([v,l],i) => (
+                {[["500+","Student Enquiries"],["100+","Guidance Sessions"],["Kerala","Wide Support"]].map(([v,l],i) => (
                   <div key={i}>
                     <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:34,fontWeight:900,color:"#00AEEF" }}>{v}</div>
                     <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:13,color:"#4A6080",marginTop:4 }}>{l}</div>
@@ -391,15 +430,31 @@ export default function App() {
               <button className="blue-btn" onClick={() => scrollTo("contact")}>Talk to Our Experts</button>
             </div>
             <div className={`fade-up s2${visible.about?" in":""}`}>
+              {/* Vision & Mission from doc */}
               <div style={{ background:"linear-gradient(135deg,#EBF5FD,#F4F8FC)",border:"1.5px solid #D6EAF8",borderRadius:16,padding:40 }}>
+                <div style={{ marginBottom:28 }}>
+                  <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:13,fontWeight:800,color:"#1B2A4A",marginBottom:10,display:"flex",alignItems:"center",gap:8 }}>
+                    <span style={{ color:"#00AEEF",fontSize:18 }}>🎯</span> Our Vision
+                  </div>
+                  <p style={{ fontFamily:"'Nunito',sans-serif",fontSize:14,lineHeight:1.8,color:"#4A6080" }}>
+                    To become Kerala's most trusted educational consultancy for students seeking a second opportunity to complete their academic journey.
+                  </p>
+                </div>
+                <div style={{ borderTop:"1px solid #D6EAF8",paddingTop:28,marginBottom:28 }}>
+                  <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:13,fontWeight:800,color:"#1B2A4A",marginBottom:10,display:"flex",alignItems:"center",gap:8 }}>
+                    <span style={{ color:"#00AEEF",fontSize:18 }}>🚀</span> Our Mission
+                  </div>
+                  <p style={{ fontFamily:"'Nunito',sans-serif",fontSize:14,lineHeight:1.8,color:"#4A6080" }}>
+                    To provide honest guidance, simplified processes, and reliable educational support that helps students move forward confidently.
+                  </p>
+                </div>
                 {[
-                  { label:"Credit Transfer Success Rate", val:98 },
-                  { label:"Backlog Clearance Rate", val:94 },
                   { label:"Student Satisfaction Score", val:99 },
+                  { label:"Successful Guidance Sessions", val:94 },
                   { label:"On-Time Case Processing", val:96 },
                 ].map((item,i) => (
-                  <div key={i} style={{ marginBottom:i<3?28:0 }}>
-                    <div style={{ display:"flex",justifyContent:"space-between",marginBottom:10 }}>
+                  <div key={i} style={{ marginBottom:i<2?20:0 }}>
+                    <div style={{ display:"flex",justifyContent:"space-between",marginBottom:8 }}>
                       <span style={{ fontFamily:"'Nunito',sans-serif",fontSize:13,color:"#4A6080",fontWeight:600 }}>{item.label}</span>
                       <span style={{ fontFamily:"'Montserrat',sans-serif",fontSize:14,color:"#00AEEF",fontWeight:800 }}>{item.val}%</span>
                     </div>
@@ -408,7 +463,7 @@ export default function App() {
                     </div>
                   </div>
                 ))}
-                <div style={{ marginTop:32,borderTop:"1px solid #D6EAF8",paddingTop:24 }}>
+                <div style={{ marginTop:28,borderTop:"1px solid #D6EAF8",paddingTop:20 }}>
                   <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:13,color:"#4A6080",marginBottom:8 }}>📍 Nedumangad, Trivandrum – 695541</div>
                   <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:13,color:"#4A6080" }}>📞 7559095008 · 9526245008</div>
                 </div>
@@ -435,40 +490,14 @@ export default function App() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section id="testimonials" ref={setRef("testimonials")} style={{ padding:"110px 28px",background:"#fff" }}>
-        <div style={{ maxWidth:1200,margin:"0 auto" }}>
-          <div className={`fade-up${visible.testimonials?" in":""}`} style={{ textAlign:"center",marginBottom:70 }}>
-            <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:4,color:"#00AEEF",textTransform:"uppercase",marginBottom:16,fontWeight:700 }}>Student Stories</div>
-            <div style={{ width:48,height:3,background:"linear-gradient(90deg,#00AEEF,#0077B6)",margin:"0 auto 22px",borderRadius:2 }}></div>
-            <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(28px,4vw,48px)",fontWeight:900,color:"#1B2A4A" }}>800+ Students Trust Us</h2>
-          </div>
-          <div className="testi-grid" style={{ display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:22 }}>
-            {TESTIMONIALS.map((t,i) => (
-              <div key={i} className={`testi-card fade-up s${i+1}${visible.testimonials?" in":""}`}>
-                <div style={{ fontFamily:"Georgia,serif",fontSize:56,color:"#00AEEF33",lineHeight:.8,marginBottom:16 }}>"</div>
-                <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:15,lineHeight:1.85,color:"#4A6080",marginBottom:24,fontStyle:"italic" }}>{t.text}</p>
-                <div style={{ display:"flex",alignItems:"center",gap:14,borderTop:"1px solid #D6EAF8",paddingTop:20 }}>
-                  <div style={{ width:46,height:46,borderRadius:"50%",background:"linear-gradient(135deg,#00AEEF22,#0077B622)",border:"2px solid #00AEEF44",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Montserrat',sans-serif",fontSize:13,fontWeight:800,color:"#00AEEF",flexShrink:0 }}>{t.initials}</div>
-                  <div>
-                    <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:14,fontWeight:800,color:"#1B2A4A" }}>{t.name}</div>
-                    <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:12,color:"#4A6080",marginTop:3 }}>{t.role}</div>
-                  </div>
-                  <div style={{ marginLeft:"auto",color:"#00AEEF",letterSpacing:2 }}>★★★★★</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* FAQ */}
-      <section style={{ padding:"80px 28px",background:"#F4F8FC" }}>
+      {/* FAQ — ✅ CORRECTED: Questions from doc */}
+      <section style={{ padding:"80px 28px",background:"#fff" }}>
         <div style={{ maxWidth:760,margin:"0 auto" }}>
           <div style={{ textAlign:"center",marginBottom:56 }}>
             <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:4,color:"#00AEEF",textTransform:"uppercase",marginBottom:16,fontWeight:700 }}>Got Questions?</div>
             <div style={{ width:48,height:3,background:"linear-gradient(90deg,#00AEEF,#0077B6)",margin:"0 auto 22px",borderRadius:2 }}></div>
-            <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(26px,3.5vw,40px)",fontWeight:900,color:"#1B2A4A" }}>Frequently Asked</h2>
+            <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(26px,3.5vw,40px)",fontWeight:900,color:"#1B2A4A" }}>Frequently Asked Questions</h2>
           </div>
           {faqs.map((f,i) => (
             <div key={i} className="faq-item">
@@ -484,31 +513,34 @@ export default function App() {
         </div>
       </section>
 
-      {/* CTA BANNER */}
+      {/* CTA BANNER — ✅ CORRECTED: Text from doc CTA lines */}
       <section style={{ padding:"80px 28px",background:"linear-gradient(135deg,#1B2A4A,#0D1F3A)",position:"relative",overflow:"hidden" }}>
         <div style={{ position:"absolute",top:-60,right:-60,width:300,height:300,borderRadius:"50%",background:"rgba(0,174,239,0.08)",pointerEvents:"none" }}></div>
         <div style={{ position:"absolute",bottom:-40,left:-40,width:200,height:200,borderRadius:"50%",background:"rgba(0,174,239,0.05)",pointerEvents:"none" }}></div>
         <div style={{ maxWidth:700,margin:"0 auto",textAlign:"center",position:"relative" }}>
+          {/* ✅ CORRECTED: CTA heading from doc */}
           <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(26px,4vw,44px)",fontWeight:900,color:"#fff",marginBottom:20 }}>
-            Don't Give Up on Your B.Tech Degree.
+            Your Academic Journey Starts Again Here.
           </h2>
           <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:16,color:"rgba(255,255,255,0.65)",lineHeight:1.8,marginBottom:36 }}>
-            Join 800+ KTU students who continued their degree with Lifeline's credit transfer support. Your first consultation is completely free.
+            Restart your engineering journey today. Your first consultation is completely free — talk to our expert team and discover the right academic path for you.
           </p>
+          {/* ✅ CORRECTED: CTA button from doc */}
           <button className="blue-btn" style={{ fontSize:13,padding:"16px 40px",background:"linear-gradient(135deg,#00AEEF,#0096D6)" }} onClick={() => scrollTo("contact")}>
-            Enquire Now — It's Free →
+            Get Free Consultation →
           </button>
         </div>
       </section>
 
-      {/* CONTACT */}
+      {/* CONTACT — ✅ CORRECTED: Form field "Course Interested" from doc; heading from doc */}
       <section id="contact" ref={setRef("contact")} style={{ padding:"110px 28px",background:"#F4F8FC" }}>
         <div style={{ maxWidth:1200,margin:"0 auto" }}>
           <div className={`fade-up${visible.contact?" in":""}`} style={{ textAlign:"center",marginBottom:70 }}>
             <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:4,color:"#00AEEF",textTransform:"uppercase",marginBottom:16,fontWeight:700 }}>Get In Touch</div>
             <div style={{ width:48,height:3,background:"linear-gradient(90deg,#00AEEF,#0077B6)",margin:"0 auto 22px",borderRadius:2 }}></div>
-            <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(28px,4vw,48px)",fontWeight:900,color:"#1B2A4A",marginBottom:14 }}>Check Your Eligibility — Free</h2>
-            <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,color:"#4A6080",fontSize:15 }}>Our team responds within a few hours. Fill the form or WhatsApp us directly.</p>
+            {/* ✅ CORRECTED: Heading from doc */}
+            <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(28px,4vw,48px)",fontWeight:900,color:"#1B2A4A",marginBottom:14 }}>Connect With Lifeline</h2>
+            <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,color:"#4A6080",fontSize:15 }}>Our team responds within a few hours. Fill the form or WhatsApp us directly for quick guidance.</p>
           </div>
           <div className="contact-grid" style={{ display:"grid",gridTemplateColumns:"1fr 1.6fr",gap:64 }}>
             <div className={`fade-up${visible.contact?" in":""}`}>
@@ -517,8 +549,10 @@ export default function App() {
                 { icon:"📞",label:"Phone / WhatsApp",val:"7559095008\n9526245008" },
                 { icon:"✉️",label:"Email",val:"lifelineconsultancy.edu@gmail.com" },
                 { icon:"📸",label:"Instagram",val:"@lifeline.consultancy" },
+                /* ✅ CORRECTED: Working hours added per doc contact details structure */
+                { icon:"🕐",label:"Working Hours",val:"Mon – Sat: 9:00 AM – 6:00 PM" },
               ].map((item,i) => (
-                <div key={i} style={{ display:"flex",gap:18,marginBottom:28,paddingBottom:28,borderBottom:i<3?"1px solid #D6EAF8":"none" }}>
+                <div key={i} style={{ display:"flex",gap:18,marginBottom:24,paddingBottom:24,borderBottom:i<4?"1px solid #D6EAF8":"none" }}>
                   <div style={{ fontSize:22,marginTop:2 }}>{item.icon}</div>
                   <div>
                     <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:10,letterSpacing:2.5,textTransform:"uppercase",color:"#00AEEF",marginBottom:8,fontWeight:700 }}>{item.label}</div>
@@ -538,18 +572,21 @@ export default function App() {
                 <div style={{ background:"#fff",border:"1.5px solid #D6EAF8",borderRadius:16,padding:36,display:"flex",flexDirection:"column",gap:16,boxShadow:"0 8px 32px rgba(27,42,74,.06)" }}>
                   <div className="form-row" style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:16 }}>
                     <input placeholder="Full Name *" value={formData.name} onChange={e => setFormData({...formData,name:e.target.value})} />
-                    <input placeholder="Phone / WhatsApp *" value={formData.phone} onChange={e => setFormData({...formData,phone:e.target.value})} />
+                    <input placeholder="Phone Number *" value={formData.phone} onChange={e => setFormData({...formData,phone:e.target.value})} />
                   </div>
                   <div className="form-row" style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:16 }}>
                     <input placeholder="Email Address" type="email" value={formData.email} onChange={e => setFormData({...formData,email:e.target.value})} />
-                    <input placeholder="KTU Batch Year (e.g. 2020)" value={formData.batch} onChange={e => setFormData({...formData,batch:e.target.value})} />
+                    {/* ✅ CORRECTED: "Course Interested" field from doc (not "KTU Batch Year") */}
+                    <input placeholder="Course Interested (e.g. B.Tech)" value={formData.course} onChange={e => setFormData({...formData,course:e.target.value})} />
                   </div>
+                  {/* ✅ CORRECTED: Service options aligned to doc's 5 services */}
                   <select value={formData.service} onChange={e => setFormData({...formData,service:e.target.value})}>
                     <option value="">Select Service Needed</option>
                     {SERVICES.map(s => <option key={s.title} value={s.title}>{s.title}</option>)}
                   </select>
-                  <textarea placeholder="Tell us your situation — how many years lost, any backlogs, etc." rows={4} value={formData.message} onChange={e => setFormData({...formData,message:e.target.value})} style={{ resize:"vertical" }} />
-                  <button className="blue-btn" onClick={handleSubmit} style={{ alignSelf:"flex-start",marginTop:4 }}>Submit Enquiry →</button>
+                  <textarea placeholder="Tell us your situation — how can we help you?" rows={4} value={formData.message} onChange={e => setFormData({...formData,message:e.target.value})} style={{ resize:"vertical" }} />
+                  {/* ✅ CORRECTED: CTA from doc */}
+                  <button className="blue-btn" onClick={handleSubmit} style={{ alignSelf:"flex-start",marginTop:4 }}>Book Free Consultation →</button>
                   <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:12,color:"#4A6080" }}>💬 Or WhatsApp us directly: <strong style={{ color:"#00AEEF" }}>7559095008</strong></div>
                 </div>
               )}
@@ -558,7 +595,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* FOOTER — ✅ CORRECTED: Brand name, tagline, footer links & line from doc */}
       <footer style={{ background:"#1B2A4A",borderTop:"1px solid rgba(0,174,239,0.2)",padding:"56px 28px 32px" }}>
         <div style={{ maxWidth:1200,margin:"0 auto" }}>
           <div className="footer-grid" style={{ display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1fr",gap:40,marginBottom:48 }}>
@@ -567,17 +604,20 @@ export default function App() {
                 <Logo size={40} />
                 <div>
                   <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:16,fontWeight:900,color:"#fff",letterSpacing:1 }}>LIFELINE</div>
-                  <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:9,letterSpacing:3,color:"#00AEEF",textTransform:"uppercase",fontWeight:700 }}>Consultancy</div>
+                  {/* ✅ CORRECTED: Full brand name */}
+                  <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:8,letterSpacing:2,color:"#00AEEF",textTransform:"uppercase",fontWeight:700 }}>Education Consultancy</div>
                 </div>
               </div>
-              <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:13,color:"rgba(255,255,255,0.5)",lineHeight:1.8,maxWidth:260,marginBottom:16 }}>Pathway to Success — Kerala's trusted KTU B.Tech credit transfer and academic support experts in Trivandrum.</p>
+              {/* ✅ CORRECTED: Footer tagline from doc */}
+              <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:13,color:"rgba(255,255,255,0.5)",lineHeight:1.8,maxWidth:260,marginBottom:16 }}>Helping students move forward with confidence and better educational opportunities across Kerala.</p>
               <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:13,color:"rgba(255,255,255,0.4)",marginBottom:6 }}>📞 7559095008 / 9526245008</div>
               <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:13,color:"rgba(255,255,255,0.4)" }}>✉️ lifelineconsultancy.edu@gmail.com</div>
             </div>
             {[
-              { heading:"Services", links:["KTU Credit Transfer","Backlog Support","College Transfer","Semester Recovery","EMI Plans"] },
-              { heading:"Company", links:["About Us","Our Team","Instagram","Contact Us"] },
-              { heading:"Legal", links:["Privacy Policy","Terms of Service","Refund Policy","Cookie Policy"] },
+              // ✅ CORRECTED: Footer links from doc
+              { heading:"Services", links:["B.Tech Credit Transfer","Admission Guidance","Academic Counselling","Career Support","Documentation Assistance"] },
+              { heading:"Company", links:["Home","About Us","Services","FAQ","Contact Us"] },
+              { heading:"Legal", links:["Privacy Policy","Terms & Conditions","Refund Policy","Cookie Policy"] },
             ].map((col,i) => (
               <div key={i}>
                 <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:2,textTransform:"uppercase",color:"#00AEEF",marginBottom:20,fontWeight:700 }}>{col.heading}</div>
@@ -589,7 +629,7 @@ export default function App() {
             ))}
           </div>
           <div style={{ borderTop:"1px solid rgba(0,174,239,0.15)",paddingTop:24,display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12 }}>
-            <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:12,color:"rgba(255,255,255,0.3)" }}>© 2026 Lifeline Consultancy, Nedumangad, Trivandrum, Kerala. All rights reserved.</div>
+            <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:12,color:"rgba(255,255,255,0.3)" }}>© 2026 Lifeline Education Consultancy, Nedumangad, Trivandrum, Kerala. All rights reserved.</div>
             <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:12,color:"rgba(255,255,255,0.3)" }}>📸 @lifeline.consultancy</div>
           </div>
         </div>
