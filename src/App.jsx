@@ -110,9 +110,63 @@ export default function App() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleSubmit = () => {
-    if (formData.name && formData.phone) setSubmitted(true);
-  };
+const GOOGLE_FORM_ACTION =
+  "https://docs.google.com/forms/d/e/1FAIpQLSd-1H_wOkFzoEsWRSHPSSoJfaaxkMpOWzyFQQRn5EA9Q9uaMQ/formResponse";
+
+// Your Google Form field IDs (must be EXACT)
+const FIELD_IDS = {
+  name: "entry.2005620554",
+  phone: "entry.1045781291",
+  email: "entry.1166974658",
+  course: "entry.1065046570",
+  service: "entry.839337160",
+  message: "entry.568520424",
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  // basic validation
+  if (!formData.name || !formData.phone) {
+    alert("Please fill required fields");
+    return;
+  }
+
+  try {
+    // ✅ IMPORTANT FIX: use URLSearchParams (NOT FormData)
+    const body = new URLSearchParams();
+
+    body.append(FIELD_IDS.name, formData.name);
+    body.append(FIELD_IDS.phone, formData.phone);
+    body.append(FIELD_IDS.email, formData.email);
+    body.append(FIELD_IDS.course, formData.course);
+    body.append(FIELD_IDS.service, formData.service);
+    body.append(FIELD_IDS.message, formData.message);
+
+    await fetch(GOOGLE_FORM_ACTION, {
+      method: "POST",
+      mode: "no-cors",
+      body: body,
+    });
+
+    // success UI update
+    setSubmitted(true);
+
+    // clear form
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      course: "",
+      service: "",
+      message: "",
+    });
+
+  } catch (error) {
+    console.error("Submission Error:", error);
+    alert("Something went wrong. Please try again.");
+  }
+};
 
   // ✅ CORRECTED: FAQs updated to match doc
   const faqs = [
