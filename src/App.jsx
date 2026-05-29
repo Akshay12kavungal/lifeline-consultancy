@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
+import logo from "./assets/IMG_9898.png";
 
 const NAV_LINKS = ["Home", "Services", "About", "Contact"];
 
-// ✅ CORRECTED: Services updated to match doc (5 services, correct descriptions)
 const SERVICES = [
   {
     icon: "🔄",
@@ -42,8 +42,6 @@ const SERVICES = [
   },
 ];
 
-
-// ✅ CORRECTED: Stats updated to match doc
 const STATS = [
   { value: "500+", label: "Student Enquiries" },
   { value: "100+", label: "Guidance Sessions" },
@@ -57,7 +55,6 @@ const TEAM = [
   { name: "Student Advisors", role: "Eligibility & Career Planning", exp: "Free consultation", initials: "SA" },
 ];
 
-// ✅ CORRECTED: Why Choose Us points updated to match doc (8 points)
 const WHY_US = [
   { icon: "✅", title: "Personalized Student Guidance", desc: "Every student gets a tailored plan based on their academic situation, goals, and eligibility." },
   { icon: "💬", title: "Supportive & Friendly Counselling", desc: "Our counsellors are approachable, patient, and genuinely invested in your success." },
@@ -69,19 +66,37 @@ const WHY_US = [
   { icon: "📚", title: "Reliable Educational Assistance", desc: "Trusted by hundreds of students and families for honest, result-oriented academic support." },
 ];
 
-function Logo({ size = 44 }) {
+function LogoIcon({ width = 200 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="22" y="30" width="20" height="60" fill="#00AEEF" rx="2"/>
-      <rect x="22" y="74" width="55" height="16" fill="#00AEEF" rx="2"/>
-      <polygon points="60,16 108,34 60,52 12,34" fill="#1B2A4A"/>
-      <ellipse cx="60" cy="34" rx="11" ry="6" fill="#14203A"/>
-      <line x1="74" y1="34" x2="80" y2="57" stroke="#00AEEF" strokeWidth="3" strokeLinecap="round"/>
-      <circle cx="80" cy="60" r="3.5" fill="#00AEEF"/>
-    </svg>
+    <img
+      src={logo}
+      alt="Lifeline Consultancy"
+      style={{
+        width: `${width}px`,
+        height: "300px",
+        objectFit: "contain",
+        display: "block",
+        marginTop: "10px", // upper space
+      }}
+    />
   );
 }
 
+function Logo({ width = 200 }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "72px",
+        paddingTop: "10px", // extra top spacing
+      }}
+    >
+      <LogoIcon width={width} />
+    </div>
+  );
+}
 export default function App() {
   const [activeNav, setActiveNav] = useState("Home");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -110,65 +125,45 @@ export default function App() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-const GOOGLE_FORM_ACTION =
-  "https://docs.google.com/forms/d/e/1FAIpQLSd-1H_wOkFzoEsWRSHPSSoJfaaxkMpOWzyFQQRn5EA9Q9uaMQ/formResponse";
+  const GOOGLE_FORM_ACTION =
+    "https://docs.google.com/forms/d/e/1FAIpQLSd-1H_wOkFzoEsWRSHPSSoJfaaxkMpOWzyFQQRn5EA9Q9uaMQ/formResponse";
 
-// Your Google Form field IDs (must be EXACT)
-const FIELD_IDS = {
-  name: "entry.2005620554",
-  phone: "entry.1045781291",
-  email: "entry.1166974658",
-  course: "entry.1065046570",
-  service: "entry.839337160",
-  message: "entry.568520424",
-};
+  const FIELD_IDS = {
+    name: "entry.2005620554",
+    phone: "entry.1045781291",
+    email: "entry.1166974658",
+    course: "entry.1065046570",
+    service: "entry.839337160",
+    message: "entry.568520424",
+  };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.phone) {
+      alert("Please fill required fields");
+      return;
+    }
+    try {
+      const body = new URLSearchParams();
+      body.append(FIELD_IDS.name, formData.name);
+      body.append(FIELD_IDS.phone, formData.phone);
+      body.append(FIELD_IDS.email, formData.email);
+      body.append(FIELD_IDS.course, formData.course);
+      body.append(FIELD_IDS.service, formData.service);
+      body.append(FIELD_IDS.message, formData.message);
+      await fetch(GOOGLE_FORM_ACTION, {
+        method: "POST",
+        mode: "no-cors",
+        body: body,
+      });
+      setSubmitted(true);
+      setFormData({ name: "", email: "", phone: "", course: "", service: "", message: "" });
+    } catch (error) {
+      console.error("Submission Error:", error);
+      alert("Something went wrong. Please try again.");
+    }
+  };
 
-  // basic validation
-  if (!formData.name || !formData.phone) {
-    alert("Please fill required fields");
-    return;
-  }
-
-  try {
-    // ✅ IMPORTANT FIX: use URLSearchParams (NOT FormData)
-    const body = new URLSearchParams();
-
-    body.append(FIELD_IDS.name, formData.name);
-    body.append(FIELD_IDS.phone, formData.phone);
-    body.append(FIELD_IDS.email, formData.email);
-    body.append(FIELD_IDS.course, formData.course);
-    body.append(FIELD_IDS.service, formData.service);
-    body.append(FIELD_IDS.message, formData.message);
-
-    await fetch(GOOGLE_FORM_ACTION, {
-      method: "POST",
-      mode: "no-cors",
-      body: body,
-    });
-
-    // success UI update
-    setSubmitted(true);
-
-    // clear form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      course: "",
-      service: "",
-      message: "",
-    });
-
-  } catch (error) {
-    console.error("Submission Error:", error);
-    alert("Something went wrong. Please try again.");
-  }
-};
-
-  // ✅ CORRECTED: FAQs updated to match doc
   const faqs = [
     { q: "Who can apply for B.Tech credit transfer?", a: "Students with backlogs, discontinued studies, or students looking for academic continuation support can contact our team for guidance. We evaluate your case and advise on the best academic route forward." },
     { q: "Do you provide counselling support?", a: "Yes. We provide personalized counselling sessions based on the student's academic condition and future goals. Our advisors help you understand available opportunities and make confident decisions." },
@@ -193,7 +188,6 @@ const handleSubmit = async (e) => {
         .service-card { background:#fff; border:1.5px solid #D6EAF8; padding:32px 28px; border-radius:12px; transition:all .3s; cursor:default; position:relative; overflow:hidden; }
         .service-card:hover { border-color:#00AEEF77; transform:translateY(-6px); box-shadow:0 16px 48px rgba(0,174,239,.13); }
         .service-card.highlight { background:linear-gradient(145deg,#1B2A4A,#0D1F3A); border-color:#00AEEF44; }
-        .testi-card { background:#fff; border:1px solid #D6EAF8; padding:30px; border-radius:12px; box-shadow:0 4px 20px rgba(27,42,74,.06); }
         .team-card { background:#fff; border:1px solid #D6EAF8; padding:32px 24px; border-radius:12px; text-align:center; transition:border-color .3s,box-shadow .3s; }
         .team-card:hover { border-color:#00AEEF66; box-shadow:0 8px 30px rgba(0,174,239,.1); }
         .why-card { background:#fff; border:1.5px solid #D6EAF8; padding:28px 24px; border-radius:12px; transition:all .3s; }
@@ -207,6 +201,12 @@ const handleSubmit = async (e) => {
         ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#F4F8FC}::-webkit-scrollbar-thumb{background:#00AEEF55;border-radius:3px}
         .pulse { animation:pulse 2s infinite; }
         @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(0,174,239,.4)} 50%{box-shadow:0 0 0 8px rgba(0,174,239,0)} }
+        .click-link { color:#00AEEF; text-decoration:none; }
+        .click-link:hover { text-decoration:underline; }
+        .footer-link { color:rgba(255,255,255,0.55); text-decoration:none; }
+        .footer-link:hover { color:rgba(255,255,255,0.85); text-decoration:underline; }
+        .about-link { color:#0077B6; text-decoration:none; }
+        .about-link:hover { text-decoration:underline; }
         @media(max-width:900px){
           .services-grid{grid-template-columns:repeat(2,1fr)!important}
           .about-grid{grid-template-columns:1fr!important}
@@ -230,23 +230,17 @@ const handleSubmit = async (e) => {
         @media(min-width:641px){.menu-btn{display:none!important}.mobile-menu{display:none!important}}
       `}</style>
 
-      {/* NAV — ✅ CORRECTED: Brand name is "Lifeline Education Consultancy" */}
+      {/* NAV */}
       <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:200,background:"rgba(255,255,255,0.97)",backdropFilter:"blur(14px)",borderBottom:"1px solid #D6EAF8",boxShadow:"0 2px 20px rgba(27,42,74,.06)" }}>
         <div style={{ maxWidth:1200,margin:"0 auto",padding:"0 28px",height:72,display:"flex",alignItems:"center",justifyContent:"space-between" }}>
-          <div style={{ cursor:"pointer",display:"flex",alignItems:"center",gap:12 }} onClick={() => scrollTo("home")}>
+          <div style={{ cursor:"pointer" }} onClick={() => scrollTo("home")}>
             <Logo size={46} />
-            <div>
-              {/* ✅ CORRECTED: Full name "Lifeline Education Consultancy" */}
-              <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:16,fontWeight:900,color:"#1B2A4A",letterSpacing:1,lineHeight:1.1 }}>LIFELINE</div>
-              <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:9,letterSpacing:2,color:"#00AEEF",textTransform:"uppercase",fontWeight:700 }}>Education Consultancy</div>
-            </div>
           </div>
           <div className="nav-desktop" style={{ display:"flex",gap:36 }}>
             {NAV_LINKS.map(l => (
               <button key={l} className={`nav-link${activeNav===l?" active":""}`} onClick={() => scrollTo(l.toLowerCase())}>{l}</button>
             ))}
           </div>
-          {/* ✅ CORRECTED: CTA updated to match doc */}
           <button className="blue-btn nav-desktop" style={{ padding:"10px 22px",fontSize:11 }} onClick={() => scrollTo("contact")}>Free Consultation</button>
           <button className="menu-btn" onClick={() => setMenuOpen(!menuOpen)} style={{ background:"none",border:"none",cursor:"pointer",display:"none",flexDirection:"column",gap:5,padding:4 }}>
             {[24,16,20].map((w,i) => <span key={i} style={{ display:"block",width:w,height:2,background:"#00AEEF",borderRadius:2 }}></span>)}
@@ -259,13 +253,12 @@ const handleSubmit = async (e) => {
                 <button className="nav-link" style={{ padding:"14px 0",display:"block",width:"100%",textAlign:"left" }} onClick={() => scrollTo(l.toLowerCase())}>{l}</button>
               </div>
             ))}
-            {/* ✅ CORRECTED: CTA matches doc */}
             <button className="blue-btn" style={{ marginTop:20,width:"100%" }} onClick={() => scrollTo("contact")}>Get Free Consultation</button>
           </div>
         )}
       </nav>
 
-      {/* HERO — ✅ CORRECTED: Heading Option 1 from doc, subheading & trust line from doc */}
+      {/* HERO */}
       <section id="home" style={{ minHeight:"100vh",display:"flex",alignItems:"center",position:"relative",overflow:"hidden",paddingTop:72,background:"linear-gradient(160deg,#EBF5FD 0%,#F4F8FC 50%,#E8F4FB 100%)" }}>
         <div style={{ position:"absolute",top:"8%",right:"4%",width:420,height:420,borderRadius:"50%",background:"radial-gradient(circle,rgba(0,174,239,0.1) 0%,transparent 70%)",pointerEvents:"none" }}></div>
         <div style={{ position:"absolute",bottom:"10%",left:"-5%",width:280,height:280,borderRadius:"50%",background:"radial-gradient(circle,rgba(27,42,74,0.06) 0%,transparent 70%)",pointerEvents:"none" }}></div>
@@ -276,16 +269,13 @@ const handleSubmit = async (e) => {
           <div>
             <div style={{ display:"inline-flex",alignItems:"center",gap:10,background:"rgba(0,174,239,0.1)",border:"1.5px solid rgba(0,174,239,0.3)",borderRadius:30,padding:"8px 18px",marginBottom:28 }}>
               <span className="pulse" style={{ display:"inline-block",width:8,height:8,borderRadius:"50%",background:"#00AEEF",flexShrink:0 }}></span>
-              {/* ✅ CORRECTED: Badge text more general per doc scope */}
               <span style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:1.5,color:"#0077B6",fontWeight:700,textTransform:"uppercase" }}>B.Tech Credit Transfer & Academic Support — Kerala</span>
             </div>
 
-            {/* ✅ CORRECTED: Hero heading from doc Option 1 */}
             <h1 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(34px,5vw,66px)",fontWeight:900,lineHeight:1.1,color:"#1B2A4A",marginBottom:22,maxWidth:680 }}>
               Your Dream Degree<br />Deserves A<br /><span style={{ color:"#00AEEF" }}>Second Chance.</span>
             </h1>
 
-            {/* ✅ CORRECTED: Subheading from doc */}
             <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:600,fontSize:17,lineHeight:1.75,color:"#0077B6",maxWidth:560,marginBottom:14 }}>
               Helping students with B.Tech Credit Transfer, Admission Guidance, Academic Support & Career Direction across Kerala.
             </p>
@@ -293,13 +283,13 @@ const handleSubmit = async (e) => {
               We understand the pressure students face due to backlogs, academic gaps, and transfer issues. Lifeline Education Consultancy provides personalized guidance to help you continue your education without giving up on your dreams.
             </p>
 
-            {/* ✅ CORRECTED: CTA buttons from doc */}
             <div className="hero-btns" style={{ display:"flex",gap:16,flexWrap:"wrap",marginBottom:48 }}>
               <button className="blue-btn" onClick={() => scrollTo("contact")}>Get Free Consultation</button>
-              <button className="outline-btn" onClick={() => scrollTo("contact")}>WhatsApp Us</button>
+              <a href="https://wa.me/917559095008" target="_blank" rel="noopener noreferrer" style={{ textDecoration:"none" }}>
+                <button className="outline-btn">WhatsApp Us</button>
+              </a>
             </div>
 
-            {/* ✅ CORRECTED: Trust line from doc */}
             <div style={{ display:"flex",gap:0,flexWrap:"wrap",background:"#fff",border:"1.5px solid #D6EAF8",borderRadius:12,overflow:"hidden",maxWidth:620,boxShadow:"0 4px 20px rgba(27,42,74,.07)" }}>
               {[
                 { icon:"✔", text:"Trusted Student Support" },
@@ -315,13 +305,14 @@ const handleSubmit = async (e) => {
             </div>
           </div>
 
-          <div className="hero-right" style={{ display:"flex",flexDirection:"column",alignItems:"center",opacity:0.1,pointerEvents:"none" }}>
-            <Logo size={260} />
+          {/* Hero right — large logo watermark */}
+          <div className="hero-right" style={{ display:"flex",flexDirection:"column",alignItems:"center",opacity:0.07,pointerEvents:"none" }}>
+            <LogoIcon size={280} />
           </div>
         </div>
       </section>
 
-      {/* STATS BAR — ✅ CORRECTED: Stats from doc */}
+      {/* STATS BAR */}
       <section style={{ background:"linear-gradient(135deg,#1B2A4A,#0D1F3A)",padding:"52px 28px" }}>
         <div style={{ maxWidth:1200,margin:"0 auto" }}>
           <div className="stats-grid" style={{ display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:0,textAlign:"center" }}>
@@ -335,14 +326,13 @@ const handleSubmit = async (e) => {
         </div>
       </section>
 
-      {/* SERVICES — ✅ CORRECTED: 5 services from doc */}
+      {/* SERVICES */}
       <section id="services" ref={setRef("services")} style={{ padding:"110px 28px",background:"#F4F8FC" }}>
         <div style={{ maxWidth:1200,margin:"0 auto" }}>
           <div className={`fade-up${visible.services?" in":""}`} style={{ textAlign:"center",marginBottom:70 }}>
             <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:4,color:"#00AEEF",textTransform:"uppercase",marginBottom:16,fontWeight:700 }}>What We Offer</div>
             <div style={{ width:48,height:3,background:"linear-gradient(90deg,#00AEEF,#0077B6)",margin:"0 auto 22px",borderRadius:2 }}></div>
             <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(28px,4vw,48px)",fontWeight:900,color:"#1B2A4A",marginBottom:16 }}>Our Services</h2>
-            {/* ✅ CORRECTED: Subtitle broadened per doc scope */}
             <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:15,color:"#4A6080",maxWidth:520,margin:"0 auto" }}>Specialised guidance for students — from B.Tech credit transfer to admission support, counselling, and career guidance.</p>
           </div>
           <div className="services-grid" style={{ display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:22 }}>
@@ -364,7 +354,7 @@ const handleSubmit = async (e) => {
         </div>
       </section>
 
-      {/* STUDENT PROBLEMS SECTION — ✅ NEW: Added from doc Section 5 */}
+      {/* STUDENT PROBLEMS SECTION */}
       <section style={{ padding:"90px 28px",background:"#1B2A4A",position:"relative",overflow:"hidden" }}>
         <div style={{ position:"absolute",top:-80,right:-80,width:320,height:320,borderRadius:"50%",background:"rgba(0,174,239,0.07)",pointerEvents:"none" }}></div>
         <div style={{ maxWidth:1100,margin:"0 auto",textAlign:"center" }}>
@@ -387,7 +377,7 @@ const handleSubmit = async (e) => {
         </div>
       </section>
 
-      {/* PROCESS SECTION — ✅ NEW: Added from doc Section 6 */}
+      {/* PROCESS SECTION */}
       <section style={{ padding:"90px 28px",background:"#fff" }}>
         <div style={{ maxWidth:1100,margin:"0 auto" }}>
           <div style={{ textAlign:"center",marginBottom:60 }}>
@@ -412,13 +402,12 @@ const handleSubmit = async (e) => {
         </div>
       </section>
 
-      {/* WHY CHOOSE US — ✅ CORRECTED: 8 points from doc */}
+      {/* WHY CHOOSE US */}
       <section style={{ padding:"90px 28px",background:"#F4F8FC" }}>
         <div style={{ maxWidth:1200,margin:"0 auto" }}>
           <div style={{ textAlign:"center",marginBottom:60 }}>
             <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:4,color:"#00AEEF",textTransform:"uppercase",marginBottom:14,fontWeight:700 }}>Why Choose Us</div>
             <div style={{ width:48,height:3,background:"linear-gradient(90deg,#00AEEF,#0077B6)",margin:"0 auto 20px",borderRadius:2 }}></div>
-            {/* ✅ CORRECTED: Heading from doc */}
             <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(26px,3.5vw,42px)",fontWeight:900,color:"#1B2A4A" }}>
               Why Students <span style={{ color:"#00AEEF" }}>Trust Lifeline</span>
             </h2>
@@ -432,14 +421,11 @@ const handleSubmit = async (e) => {
               </div>
             ))}
           </div>
-
-          {/* Banner strip — ✅ CORRECTED: Text from doc brand positioning */}
           <div style={{ background:"linear-gradient(135deg,#1B2A4A,#0D1F3A)",borderRadius:16,padding:"40px 48px",display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:24 }}>
             <div>
               <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:22,fontWeight:900,color:"#fff",marginBottom:8 }}>
                 Don't Let Backlogs Stop Your Dream. <span style={{ color:"#00AEEF" }}>Restart Today.</span>
               </div>
-              {/* ✅ CORRECTED: Tagline from doc */}
               <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:14,color:"rgba(255,255,255,0.6)" }}>
                 Guiding students towards a better academic future. Better Guidance. Better Direction. Better Future.
               </div>
@@ -451,18 +437,16 @@ const handleSubmit = async (e) => {
         </div>
       </section>
 
-      {/* ABOUT — ✅ CORRECTED: Content updated from doc About section */}
+      {/* ABOUT */}
       <section id="about" ref={setRef("about")} style={{ padding:"110px 28px",background:"#fff" }}>
         <div style={{ maxWidth:1200,margin:"0 auto" }}>
           <div className="about-grid" style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:80,alignItems:"center" }}>
             <div className={`fade-up${visible.about?" in":""}`}>
               <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:4,color:"#00AEEF",textTransform:"uppercase",marginBottom:16,fontWeight:700 }}>About Us</div>
               <div style={{ width:48,height:3,background:"linear-gradient(90deg,#00AEEF,#0077B6)",marginBottom:24,borderRadius:2 }}></div>
-              {/* ✅ CORRECTED: Heading from doc */}
               <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(26px,3.5vw,44px)",fontWeight:900,color:"#1B2A4A",marginBottom:24,lineHeight:1.2 }}>
                 About Lifeline<br /><span style={{ color:"#00AEEF" }}>Education</span><br />Consultancy
               </h2>
-              {/* ✅ CORRECTED: About content from doc */}
               <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:15,lineHeight:1.9,color:"#4A6080",marginBottom:16 }}>
                 Lifeline Education Consultancy was created with one mission — to help students continue their education without giving up on their dreams.
               </p>
@@ -472,7 +456,6 @@ const handleSubmit = async (e) => {
               <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:15,lineHeight:1.9,color:"#4A6080",marginBottom:36 }}>
                 With a student-first approach, we help candidates explore the right academic opportunities and make confident decisions for a better future.
               </p>
-              {/* ✅ CORRECTED: Stats from doc */}
               <div style={{ display:"flex",gap:40,marginBottom:36,flexWrap:"wrap" }}>
                 {[["500+","Student Enquiries"],["100+","Guidance Sessions"],["Kerala","Wide Support"]].map(([v,l],i) => (
                   <div key={i}>
@@ -484,7 +467,6 @@ const handleSubmit = async (e) => {
               <button className="blue-btn" onClick={() => scrollTo("contact")}>Talk to Our Experts</button>
             </div>
             <div className={`fade-up s2${visible.about?" in":""}`}>
-              {/* Vision & Mission from doc */}
               <div style={{ background:"linear-gradient(135deg,#EBF5FD,#F4F8FC)",border:"1.5px solid #D6EAF8",borderRadius:16,padding:40 }}>
                 <div style={{ marginBottom:28 }}>
                   <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:13,fontWeight:800,color:"#1B2A4A",marginBottom:10,display:"flex",alignItems:"center",gap:8 }}>
@@ -519,7 +501,12 @@ const handleSubmit = async (e) => {
                 ))}
                 <div style={{ marginTop:28,borderTop:"1px solid #D6EAF8",paddingTop:20 }}>
                   <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:13,color:"#4A6080",marginBottom:8 }}>📍 Nedumangad, Trivandrum – 695541</div>
-                  <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:13,color:"#4A6080" }}>📞 7559095008 · 9526245008</div>
+                  <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:13,color:"#4A6080" }}>
+                    📞{" "}
+                    <a href="tel:7559095008" className="about-link">7559095008</a>
+                    {" · "}
+                    <a href="tel:9526245008" className="about-link">9526245008</a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -544,8 +531,7 @@ const handleSubmit = async (e) => {
         </div>
       </section>
 
-
-      {/* FAQ — ✅ CORRECTED: Questions from doc */}
+      {/* FAQ */}
       <section style={{ padding:"80px 28px",background:"#fff" }}>
         <div style={{ maxWidth:760,margin:"0 auto" }}>
           <div style={{ textAlign:"center",marginBottom:56 }}>
@@ -567,50 +553,57 @@ const handleSubmit = async (e) => {
         </div>
       </section>
 
-      {/* CTA BANNER — ✅ CORRECTED: Text from doc CTA lines */}
+      {/* CTA BANNER */}
       <section style={{ padding:"80px 28px",background:"linear-gradient(135deg,#1B2A4A,#0D1F3A)",position:"relative",overflow:"hidden" }}>
         <div style={{ position:"absolute",top:-60,right:-60,width:300,height:300,borderRadius:"50%",background:"rgba(0,174,239,0.08)",pointerEvents:"none" }}></div>
         <div style={{ position:"absolute",bottom:-40,left:-40,width:200,height:200,borderRadius:"50%",background:"rgba(0,174,239,0.05)",pointerEvents:"none" }}></div>
         <div style={{ maxWidth:700,margin:"0 auto",textAlign:"center",position:"relative" }}>
-          {/* ✅ CORRECTED: CTA heading from doc */}
           <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(26px,4vw,44px)",fontWeight:900,color:"#fff",marginBottom:20 }}>
             Your Academic Journey Starts Again Here.
           </h2>
           <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:16,color:"rgba(255,255,255,0.65)",lineHeight:1.8,marginBottom:36 }}>
             Restart your engineering journey today. Your first consultation is completely free — talk to our expert team and discover the right academic path for you.
           </p>
-          {/* ✅ CORRECTED: CTA button from doc */}
           <button className="blue-btn" style={{ fontSize:13,padding:"16px 40px",background:"linear-gradient(135deg,#00AEEF,#0096D6)" }} onClick={() => scrollTo("contact")}>
             Get Free Consultation →
           </button>
         </div>
       </section>
 
-      {/* CONTACT — ✅ CORRECTED: Form field "Course Interested" from doc; heading from doc */}
+      {/* CONTACT */}
       <section id="contact" ref={setRef("contact")} style={{ padding:"110px 28px",background:"#F4F8FC" }}>
         <div style={{ maxWidth:1200,margin:"0 auto" }}>
           <div className={`fade-up${visible.contact?" in":""}`} style={{ textAlign:"center",marginBottom:70 }}>
             <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:4,color:"#00AEEF",textTransform:"uppercase",marginBottom:16,fontWeight:700 }}>Get In Touch</div>
             <div style={{ width:48,height:3,background:"linear-gradient(90deg,#00AEEF,#0077B6)",margin:"0 auto 22px",borderRadius:2 }}></div>
-            {/* ✅ CORRECTED: Heading from doc */}
             <h2 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:"clamp(28px,4vw,48px)",fontWeight:900,color:"#1B2A4A",marginBottom:14 }}>Connect With Lifeline</h2>
             <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,color:"#4A6080",fontSize:15 }}>Our team responds within a few hours. Fill the form or WhatsApp us directly for quick guidance.</p>
           </div>
           <div className="contact-grid" style={{ display:"grid",gridTemplateColumns:"1fr 1.6fr",gap:64 }}>
             <div className={`fade-up${visible.contact?" in":""}`}>
               {[
-                { icon:"📍",label:"Address",val:"GGHSS Road, opp. PWD Office\nNedumangad, Trivandrum – 695541" },
-                { icon:"📞",label:"Phone / WhatsApp",val:"7559095008\n9526245008" },
-                { icon:"✉️",label:"Email",val:"lifelineconsultancy.edu@gmail.com" },
-                { icon:"📸",label:"Instagram",val:"@lifeline.consultancy" },
-                /* ✅ CORRECTED: Working hours added per doc contact details structure */
-                { icon:"🕐",label:"Working Hours",val:"Mon – Sat: 9:00 AM – 6:00 PM" },
+                { icon:"📍", label:"Address", type:"text", val:"GGHSS Road, opp. PWD Office\nNedumangad, Trivandrum – 695541" },
+                { icon:"📞", label:"Phone / WhatsApp", type:"links", links:[{text:"7559095008",href:"tel:7559095008"},{text:"9526245008",href:"tel:9526245008"}] },
+                { icon:"✉️", label:"Email", type:"links", links:[{text:"lifelineconsultancy.edu@gmail.com",href:"mailto:lifelineconsultancy.edu@gmail.com"}] },
+                { icon:"📸", label:"Instagram", type:"links", links:[{text:"@lifeline.consultancy",href:"https://instagram.com/lifeline.consultancy"}] },
+                { icon:"🕐", label:"Working Hours", type:"text", val:"Mon – Sat: 9:00 AM – 6:00 PM" },
               ].map((item,i) => (
                 <div key={i} style={{ display:"flex",gap:18,marginBottom:24,paddingBottom:24,borderBottom:i<4?"1px solid #D6EAF8":"none" }}>
                   <div style={{ fontSize:22,marginTop:2 }}>{item.icon}</div>
                   <div>
                     <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:10,letterSpacing:2.5,textTransform:"uppercase",color:"#00AEEF",marginBottom:8,fontWeight:700 }}>{item.label}</div>
-                    <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:14,color:"#4A6080",lineHeight:1.7,whiteSpace:"pre-line" }}>{item.val}</div>
+                    {item.type === "links" ? (
+                      <div style={{ display:"flex",flexDirection:"column",gap:4 }}>
+                        {item.links.map((l,j) => (
+                          <a key={j} href={l.href} target={l.href.startsWith("http")?"_blank":"_self"} rel="noopener noreferrer" className="click-link"
+                            style={{ fontFamily:"'Nunito',sans-serif",fontSize:14,lineHeight:1.7 }}>
+                            {l.text}
+                          </a>
+                        ))}
+                      </div>
+                    ) : (
+                      <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:14,color:"#4A6080",lineHeight:1.7,whiteSpace:"pre-line" }}>{item.val}</div>
+                    )}
                   </div>
                 </div>
               ))}
@@ -620,7 +613,11 @@ const handleSubmit = async (e) => {
                 <div style={{ textAlign:"center",padding:"70px 20px",background:"#fff",border:"1.5px solid #D6EAF8",borderRadius:16,boxShadow:"0 8px 32px rgba(0,174,239,.08)" }}>
                   <div style={{ fontSize:56,marginBottom:20 }}>🎓</div>
                   <h3 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:28,fontWeight:900,color:"#1B2A4A",marginBottom:14 }}>Enquiry Received!</h3>
-                  <p style={{ fontFamily:"'Nunito',sans-serif",color:"#4A6080",fontSize:15,lineHeight:1.7 }}>Our team will contact you shortly.<br />You can also WhatsApp us directly at <strong style={{ color:"#00AEEF" }}>7559095008</strong>.</p>
+                  <p style={{ fontFamily:"'Nunito',sans-serif",color:"#4A6080",fontSize:15,lineHeight:1.7 }}>
+                    Our team will contact you shortly.<br />
+                    You can also WhatsApp us directly at{" "}
+                    <a href="https://wa.me/917559095008" target="_blank" rel="noopener noreferrer" className="click-link" style={{ fontWeight:700 }}>7559095008</a>.
+                  </p>
                 </div>
               ) : (
                 <div style={{ background:"#fff",border:"1.5px solid #D6EAF8",borderRadius:16,padding:36,display:"flex",flexDirection:"column",gap:16,boxShadow:"0 8px 32px rgba(27,42,74,.06)" }}>
@@ -630,18 +627,18 @@ const handleSubmit = async (e) => {
                   </div>
                   <div className="form-row" style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:16 }}>
                     <input placeholder="Email Address" type="email" value={formData.email} onChange={e => setFormData({...formData,email:e.target.value})} />
-                    {/* ✅ CORRECTED: "Course Interested" field from doc (not "KTU Batch Year") */}
                     <input placeholder="Course Interested (e.g. B.Tech)" value={formData.course} onChange={e => setFormData({...formData,course:e.target.value})} />
                   </div>
-                  {/* ✅ CORRECTED: Service options aligned to doc's 5 services */}
                   <select value={formData.service} onChange={e => setFormData({...formData,service:e.target.value})}>
                     <option value="">Select Service Needed</option>
                     {SERVICES.map(s => <option key={s.title} value={s.title}>{s.title}</option>)}
                   </select>
                   <textarea placeholder="Tell us your situation — how can we help you?" rows={4} value={formData.message} onChange={e => setFormData({...formData,message:e.target.value})} style={{ resize:"vertical" }} />
-                  {/* ✅ CORRECTED: CTA from doc */}
                   <button className="blue-btn" onClick={handleSubmit} style={{ alignSelf:"flex-start",marginTop:4 }}>Book Free Consultation →</button>
-                  <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:12,color:"#4A6080" }}>💬 Or WhatsApp us directly: <strong style={{ color:"#00AEEF" }}>7559095008</strong></div>
+                  <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:12,color:"#4A6080" }}>
+                    💬 Or WhatsApp us directly:{" "}
+                    <a href="https://wa.me/917559095008" target="_blank" rel="noopener noreferrer" className="click-link" style={{ fontWeight:700 }}>7559095008</a>
+                  </div>
                 </div>
               )}
             </div>
@@ -649,26 +646,27 @@ const handleSubmit = async (e) => {
         </div>
       </section>
 
-      {/* FOOTER — ✅ CORRECTED: Brand name, tagline, footer links & line from doc */}
+      {/* FOOTER */}
       <footer style={{ background:"#1B2A4A",borderTop:"1px solid rgba(0,174,239,0.2)",padding:"56px 28px 32px" }}>
         <div style={{ maxWidth:1200,margin:"0 auto" }}>
           <div className="footer-grid" style={{ display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1fr",gap:40,marginBottom:48 }}>
             <div>
-              <div style={{ display:"flex",alignItems:"center",gap:10,marginBottom:16 }}>
-                <Logo size={40} />
-                <div>
-                  <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:16,fontWeight:900,color:"#fff",letterSpacing:1 }}>LIFELINE</div>
-                  {/* ✅ CORRECTED: Full brand name */}
-                  <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:8,letterSpacing:2,color:"#00AEEF",textTransform:"uppercase",fontWeight:700 }}>Education Consultancy</div>
-                </div>
+              <div style={{ marginBottom:16 }}>
+                <Logo size={42} darkBg={true} />
               </div>
-              {/* ✅ CORRECTED: Footer tagline from doc */}
               <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:13,color:"rgba(255,255,255,0.5)",lineHeight:1.8,maxWidth:260,marginBottom:16 }}>Helping students move forward with confidence and better educational opportunities across Kerala.</p>
-              <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:13,color:"rgba(255,255,255,0.4)",marginBottom:6 }}>📞 7559095008 / 9526245008</div>
-              <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:13,color:"rgba(255,255,255,0.4)" }}>✉️ lifelineconsultancy.edu@gmail.com</div>
+              <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:13,color:"rgba(255,255,255,0.4)",marginBottom:6 }}>
+                📞{" "}
+                <a href="tel:7559095008" className="footer-link">7559095008</a>
+                {" / "}
+                <a href="tel:9526245008" className="footer-link">9526245008</a>
+              </div>
+              <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:13,color:"rgba(255,255,255,0.4)" }}>
+                ✉️{" "}
+                <a href="mailto:lifelineconsultancy.edu@gmail.com" className="footer-link">lifelineconsultancy.edu@gmail.com</a>
+              </div>
             </div>
             {[
-              // ✅ CORRECTED: Footer links from doc
               { heading:"Services", links:["B.Tech Credit Transfer","Admission Guidance","Academic Counselling","Career Support","Documentation Assistance"] },
               { heading:"Company", links:["Home","About Us","Services","FAQ","Contact Us"] },
               { heading:"Legal", links:["Privacy Policy","Terms & Conditions","Refund Policy","Cookie Policy"] },
@@ -684,7 +682,9 @@ const handleSubmit = async (e) => {
           </div>
           <div style={{ borderTop:"1px solid rgba(0,174,239,0.15)",paddingTop:24,display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12 }}>
             <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:12,color:"rgba(255,255,255,0.3)" }}>© 2026 Lifeline Education Consultancy, Nedumangad, Trivandrum, Kerala. All rights reserved.</div>
-            <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:12,color:"rgba(255,255,255,0.3)" }}>📸 @lifeline.consultancy</div>
+            <a href="https://instagram.com/lifeline.consultancy" target="_blank" rel="noopener noreferrer" className="footer-link" style={{ fontFamily:"'Nunito',sans-serif",fontSize:12 }}>
+              📸 @lifeline.consultancy
+            </a>
           </div>
         </div>
       </footer>
