@@ -345,9 +345,6 @@ export default function App() {
                 <div style={{ display:"inline-block",fontFamily:"'Montserrat',sans-serif",fontSize:9,letterSpacing:1.5,color:s.highlight?"#00AEEF":s.color,border:`1.5px solid ${s.highlight?"#00AEEF55":s.color+"55"}`,padding:"3px 12px",borderRadius:20,marginBottom:14,textTransform:"uppercase",fontWeight:700,background:s.highlight?"rgba(0,174,239,0.1)":`${s.color}0D` }}>{s.tag}</div>
                 <h3 style={{ fontFamily:"'Montserrat',sans-serif",fontSize:19,fontWeight:800,color:s.highlight?"#fff":"#1B2A4A",marginBottom:12,lineHeight:1.3 }}>{s.title}</h3>
                 <p style={{ fontFamily:"'Nunito',sans-serif",fontWeight:400,fontSize:14,lineHeight:1.85,color:s.highlight?"rgba(255,255,255,0.65)":"#4A6080",marginBottom:20 }}>{s.desc}</p>
-                <button onClick={() => scrollTo("contact")} style={{ background:"none",border:"none",color:s.highlight?"#00AEEF":s.color,fontFamily:"'Montserrat',sans-serif",fontSize:11,letterSpacing:1.5,textTransform:"uppercase",cursor:"pointer",padding:0,display:"flex",alignItems:"center",gap:8,fontWeight:800 }}>
-                  Talk To A Counsellor →
-                </button>
               </div>
             ))}
           </div>
@@ -373,7 +370,6 @@ export default function App() {
               </div>
             ))}
           </div>
-          <button className="blue-btn" style={{ fontSize:13 }} onClick={() => scrollTo("contact")}>Talk To A Counsellor Today</button>
         </div>
       </section>
 
@@ -430,9 +426,6 @@ export default function App() {
                 Guiding students towards a better academic future. Better Guidance. Better Direction. Better Future.
               </div>
             </div>
-            <button className="blue-btn" style={{ flexShrink:0,whiteSpace:"nowrap" }} onClick={() => scrollTo("contact")}>
-              Talk To Our Expert
-            </button>
           </div>
         </div>
       </section>
@@ -464,7 +457,6 @@ export default function App() {
                   </div>
                 ))}
               </div>
-              <button className="blue-btn" onClick={() => scrollTo("contact")}>Talk to Our Experts</button>
             </div>
             <div className={`fade-up s2${visible.about?" in":""}`}>
               <div style={{ background:"linear-gradient(135deg,#EBF5FD,#F4F8FC)",border:"1.5px solid #D6EAF8",borderRadius:16,padding:40 }}>
