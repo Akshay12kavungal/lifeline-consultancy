@@ -504,8 +504,6 @@ export default function App() {
                   <div style={{ fontFamily:"'Montserrat',sans-serif",fontSize:13,color:"#4A6080" }}>
                     📞{" "}
                     <a href="tel:7559095008" className="about-link">7559095008</a>
-                    {" · "}
-                    <a href="tel:9526245008" className="about-link">9526245008</a>
                   </div>
                 </div>
               </div>
@@ -583,7 +581,7 @@ export default function App() {
             <div className={`fade-up${visible.contact?" in":""}`}>
               {[
                 { icon:"📍", label:"Address", type:"text", val:"GGHSS Road, opp. PWD Office\nNedumangad, Trivandrum – 695541" },
-                { icon:"📞", label:"Phone / WhatsApp", type:"links", links:[{text:"7559095008",href:"tel:7559095008"},{text:"9526245008",href:"tel:9526245008"}] },
+                { icon:"📞", label:"Phone / WhatsApp", type:"links", links:[{text:"7559095008",href:"tel:7559095008"}] },
                 { icon:"✉️", label:"Email", type:"links", links:[{text:"lifelineconsultancy.edu@gmail.com",href:"mailto:lifelineconsultancy.edu@gmail.com"}] },
                 { icon:"📸", label:"Instagram", type:"links", links:[{text:"@lifeline.consultancy",href:"https://instagram.com/lifeline.consultancy"}] },
                 { icon:"🕐", label:"Working Hours", type:"text", val:"Mon – Sat: 9:00 AM – 6:00 PM" },
@@ -658,8 +656,6 @@ export default function App() {
               <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:13,color:"rgba(255,255,255,0.4)",marginBottom:6 }}>
                 📞{" "}
                 <a href="tel:7559095008" className="footer-link">7559095008</a>
-                {" / "}
-                <a href="tel:9526245008" className="footer-link">9526245008</a>
               </div>
               <div style={{ fontFamily:"'Nunito',sans-serif",fontSize:13,color:"rgba(255,255,255,0.4)" }}>
                 ✉️{" "}
