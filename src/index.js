@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import ReactGA from 'react-ga4';
 
-ReactGA.initialize('G-5C31D1LBPR'); // paste your ID here
+ReactGA.initialize('G-6VLQW9RN2C'); // paste your ID here
 ReactGA.send('pageview');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
