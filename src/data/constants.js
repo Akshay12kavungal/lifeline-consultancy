@@ -73,13 +73,13 @@ export const FAQS = [
 ];
 
 export const GOOGLE_FORM_ACTION =
-  "https://docs.google.com/forms/d/e/1FAIpQLSd-1H_wOkFzoEsWRSHPSSoJfaaxkMpOWzyFQQRn5EA9Q9uaMQ/formResponse";
-
+  "https://docs.google.com/forms/d/e/1FAIpQLSezxUtfmPzWTRbh3TMOTks_3riKKAsrlwm4-00pSbqOElF3OA/formResponse";
+  
 export const FIELD_IDS = {
-  name: "entry.2005620554",
-  phone: "entry.1045781291",
-  email: "entry.1166974658",
-  course: "entry.1065046570",
-  service: "entry.839337160",
-  message: "entry.568520424",
+  name: "entry.2005620554",        
+  email: "entry.1045781291",       
+  course: "entry.1065046570",      
+  phone: "entry.1166974658",       
+  service: "entry.839337160",      
+  message: "entry.678910034",      
 };
