@@ -1,60 +1,52 @@
-import { useState, useEffect, useRef } from "react";
-import { globalStyles } from "./styles/globalStyles";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import FloatingButtons from "./components/layout/FloatingButtons";
 
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import StatsBar from "./components/StatsBar";
-import Services from "./components/Services";
-import StudentProblems from "./components/StudentProblems";
-import Process from "./components/Process";
-import WhyUs from "./components/WhyUs";
-import About from "./components/About";
-import FAQ from "./components/FAQ";
-import CTABanner from "./components/CTABanner";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import FloatingButtons from "./components/FloatingButtons";
+import Hero from "./components/sections/Hero";
+import StatsBar from "./components/sections/StatsBar";
+import Services from "./components/sections/Services";
+import StudentProblems from "./components/sections/StudentProblems";
+import Process from "./components/sections/Process";
+import WhyUs from "./components/sections/WhyUs";
+import About from "./components/sections/About";
+import FAQ from "./components/sections/FAQ";
+import CTABanner from "./components/sections/CTABanner";
+import Contact from "./components/sections/Contact";
+
+import useRevealOnScroll from "./hooks/useRevealOnScroll";
+import useActiveSection from "./hooks/useActiveSection";
+import useCardSpotlight from "./hooks/useCardSpotlight";
+import { NAV_LINKS } from "./data/content";
+
+const NAV_SECTIONS = NAV_LINKS.map(l => l.toLowerCase());
 
 export default function App() {
-  const [activeNav, setActiveNav] = useState("Home");
-  const [visible, setVisible] = useState({});
-  const sectionRefs = useRef({});
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach(e => {
-        if (e.isIntersecting) setVisible(v => ({ ...v, [e.target.id]: true }));
-      }),
-      { threshold: 0.08 }
-    );
-    Object.values(sectionRefs.current).forEach(r => r && observer.observe(r));
-    return () => observer.disconnect();
-  }, []);
-
-  const setRef = (id) => (el) => { sectionRefs.current[id] = el; };
+  const { visible, setRef } = useRevealOnScroll();
+  const [activeNav, setActiveNav] = useActiveSection(NAV_SECTIONS);
+  useCardSpotlight();
 
   const scrollTo = (id) => {
-    setActiveNav(id.charAt(0).toUpperCase() + id.slice(1));
+    if (NAV_SECTIONS.includes(id)) setActiveNav(id);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div style={{ fontFamily:"'Segoe UI', sans-serif", background:"#F4F8FC", color:"#1B2A4A", minHeight:"100vh", overflowX:"hidden" }}>
-      <style>{globalStyles}</style>
-
-      <Navbar activeNav={activeNav} setActiveNav={setActiveNav} scrollTo={scrollTo} />
-      <Hero scrollTo={scrollTo} />
-      <StatsBar />
-      <Services visible={visible} setRef={setRef} />
-      <StudentProblems />
-      <Process />
-      <WhyUs scrollTo={scrollTo} />
-      <About visible={visible} setRef={setRef} />
-      <FAQ />
-      <CTABanner scrollTo={scrollTo} />
-      <Contact visible={visible} setRef={setRef} />
-      <Footer />
+    <>
+      <Navbar activeNav={activeNav} scrollTo={scrollTo} />
+      <main>
+        <Hero scrollTo={scrollTo} />
+        <StatsBar />
+        <Services visible={visible} setRef={setRef} />
+        <StudentProblems visible={visible} setRef={setRef} />
+        <Process visible={visible} setRef={setRef} />
+        <WhyUs visible={visible} setRef={setRef} />
+        <About visible={visible} setRef={setRef} />
+        <FAQ visible={visible} setRef={setRef} />
+        <CTABanner scrollTo={scrollTo} />
+        <Contact visible={visible} setRef={setRef} />
+      </main>
+      <Footer scrollTo={scrollTo} />
       <FloatingButtons />
-    </div>
+    </>
   );
 }

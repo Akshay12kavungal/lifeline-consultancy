@@ -1,0 +1,50 @@
+.footer { position: relative; overflow: hidden; background: var(--navy-900); color: rgba(255, 255, 255, .65); padding: 76px 0 32px; }
+/* Brand-coloured top edge */
+.footer::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: linear-gradient(90deg, var(--brand), var(--brand-600), var(--brand)); }
+/* Subtle grid + corner glow */
+.footer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(600px 300px at 90% 0%, rgba(0, 174, 239, .12), transparent 70%),
+    linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px);
+  background-size: auto, 40px 40px, 40px 40px;
+  pointer-events: none;
+}
+.footer > .container { position: relative; z-index: 1; }
+
+.footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+.footer-logo { display: inline-block; background: #fff; border-radius: 14px; padding: 12px 16px; margin-bottom: 20px; transition: transform .25s, box-shadow .25s; }
+.footer-logo:hover { transform: translateY(-3px); box-shadow: 0 14px 30px -12px rgba(0, 174, 239, .6); }
+.footer-logo img { height: 40px; width: auto; }
+.footer-about { font-size: 14px; line-height: 1.75; max-width: 300px; margin-bottom: 18px; color: rgba(255, 255, 255, .6); }
+.footer-contact { font-size: 14px; margin-bottom: 8px; color: rgba(255, 255, 255, .5); }
+.footer h5 { font: 800 12px/1 var(--font-head); letter-spacing: .14em; text-transform: uppercase; color: #33C1F5; margin-bottom: 22px; }
+
+.footer-link {
+  display: block;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 13px;
+  font: 400 14px/1.5 var(--font-body);
+  color: rgba(255, 255, 255, .62);
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
+  transition: color .2s, transform .2s;
+}
+a.footer-link { display: inline; margin: 0; }
+button.footer-link:hover { color: #fff; transform: translateX(3px); }
+a.footer-link:hover { color: #fff; text-decoration: underline; }
+.footer-text { font-size: 14px; line-height: 1.5; margin-bottom: 13px; color: rgba(255, 255, 255, .42); }
+.footer-bottom { border-top: 1px solid rgba(255, 255, 255, .1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 13px; color: rgba(255, 255, 255, .42); }
+
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .footer-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,58 @@
+/* 6-column grid so the 5 cards sit as 3 + 2 centred */
+.services-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 24px; }
+.services-grid > * { grid-column: span 2; }
+.services-grid > :nth-child(4) { grid-column: 2 / span 2; }
+
+/* Softly varied tile colours */
+.services-grid .card:nth-child(3) .emoji-tile { background: linear-gradient(135deg, #E3F8F1, #F4FCF9); border-color: #C9EFE2; }
+.services-grid .card:nth-child(4) .emoji-tile { background: linear-gradient(135deg, #ECEBFD, #F7F6FF); border-color: #DCDAFA; }
+.services-grid .card:nth-child(5) .emoji-tile { background: linear-gradient(135deg, #FFF1E6, #FFF9F4); border-color: #FBE0CB; }
+
+/* Featured (dark) card with a rotating gradient border */
+@property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+.service-card--featured {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(155deg, #213559, var(--navy-900)) padding-box,
+    conic-gradient(from var(--angle), rgba(0, 174, 239, .15), var(--brand), rgba(51, 193, 245, .9), rgba(0, 174, 239, .15) 40%, rgba(0, 174, 239, .15)) border-box;
+  animation: rotate-border 6s linear infinite;
+  box-shadow: 0 24px 50px -20px rgba(13, 31, 58, .55);
+}
+.service-card--featured h3 { color: #fff; }
+.service-card--featured p { color: rgba(255, 255, 255, .7); }
+.service-card--featured .emoji-tile { background: rgba(0, 174, 239, .16); border-color: rgba(0, 174, 239, .35); }
+.service-card--featured .tag { color: #8FDDFB; background: rgba(0, 174, 239, .16); border-color: rgba(0, 174, 239, .35); }
+.service-card--featured::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(400px 200px at 100% 0%, rgba(0, 174, 239, .22), transparent 70%);
+  pointer-events: none;
+}
+.service-card--featured::after { display: none; }
+.top-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--brand);
+  color: #fff;
+  font: 800 10px/1 var(--font-head);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px -6px rgba(0, 174, 239, .8);
+}
+
+@keyframes rotate-border { to { --angle: 360deg; } }
+
+@media (max-width: 900px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .services-grid > *, .services-grid > :nth-child(4) { grid-column: auto; }
+  .services-grid > :nth-child(5) { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .services-grid { grid-template-columns: 1fr; }
+  .services-grid > :nth-child(5) { grid-column: auto; }
+}
