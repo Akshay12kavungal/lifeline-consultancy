@@ -1,0 +1,48 @@
+.contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; align-items: start; }
+
+/* ---------- Contact details ---------- */
+.contact-list { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 10px 28px; box-shadow: var(--shadow-sm); }
+.contact-item { display: flex; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.contact-item:last-child { border-bottom: none; }
+.contact-item .emoji-tile { width: 46px; height: 46px; font-size: 20px; border-radius: 12px; margin: 0; transition: transform .25s; }
+.contact-item:hover .emoji-tile { transform: scale(1.1) rotate(-5deg); }
+.contact-label { font: 800 11px/1 var(--font-head); letter-spacing: .14em; text-transform: uppercase; color: var(--brand-600); margin: 4px 0 8px; }
+.contact-value { font-size: 15px; line-height: 1.7; color: var(--muted); white-space: pre-line; }
+.contact-value a { word-break: break-word; }
+
+/* ---------- Form ---------- */
+.form-card { position: relative; overflow: hidden; background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 38px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; gap: 16px; }
+.form-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--brand), var(--brand-600), #33C1F5);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-note { font-size: 13.5px; color: var(--muted); }
+
+/* Shown after a successful submit */
+.success-card { text-align: center; padding: 72px 28px; }
+.success-icon {
+  width: 84px;
+  height: 84px;
+  margin: 0 auto 22px;
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  font-size: 44px;
+  background: linear-gradient(135deg, rgba(0, 174, 239, .14), rgba(0, 119, 182, .06));
+  border: 1px solid rgba(0, 174, 239, .2);
+}
+.success-card h3 { font: 900 28px/1.2 var(--font-head); color: var(--navy); margin-bottom: 14px; }
+.success-card p { font-size: 15.5px; line-height: 1.75; color: var(--muted); }
+
+@media (max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .form-card { padding: 24px; }
+  .contact-list { padding: 4px 20px; }
+  .form-row { grid-template-columns: 1fr; }
+}

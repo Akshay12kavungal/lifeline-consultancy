@@ -1,0 +1,24 @@
+/* Design tokens — colours, shadows, fonts, sizes used across the site */
+
+:root {
+  --brand: #00AEEF;
+  --brand-500: #0096D6;
+  --brand-600: #0077B6;
+  --navy: #1B2A4A;
+  --navy-900: #0D1F3A;
+  --muted: #4A6080;
+  --line: #DCE8F3;
+  --bg: #F4F8FC;
+  --tint: #EAF5FD;
+  --radius: 16px;
+  --shadow-sm: 0 1px 2px rgba(27, 42, 74, .05), 0 4px 14px rgba(27, 42, 74, .05);
+  --shadow-md: 0 18px 40px -16px rgba(27, 42, 74, .22);
+  --shadow-lg: 0 30px 60px -20px rgba(13, 31, 58, .3);
+  --font-head: 'Montserrat', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
+  --nav-h: 76px;
+}
+
+@media (max-width: 640px) {
+  :root { --nav-h: 68px; }
+}
